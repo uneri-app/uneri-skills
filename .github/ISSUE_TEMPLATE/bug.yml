@@ -1,0 +1,37 @@
+name: Bug in a skill or hook
+description: A skill did something wrong, or a hook blocked or injected something it should not have.
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: uneri-skills version
+      description: The output of `claude plugin list`, or the `version` in the plugin's `plugin.json`.
+    validations:
+      required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Skill or hook
+      placeholder: "/uneri-skills:sdd-design"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The steps that show the problem come first. Keep it short.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual
+      description: What you expected the skill to do, and what it did.
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Relevant files
+      description: The relevant lines of `use-cases.md`, `spec.json` or `design.md`, if any. Remove anything private.

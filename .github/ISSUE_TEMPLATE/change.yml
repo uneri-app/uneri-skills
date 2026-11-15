@@ -1,0 +1,23 @@
+name: Change to an existing skill
+description: A skill's wording, steps or gates should work differently.
+labels: [enhancement]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      placeholder: "/uneri-skills:udd-add"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What went wrong or got in your way when you used it. Describe the problem; the fix is ours to design.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: An example
+      description: A short example of the input and what you would have liked to happen.

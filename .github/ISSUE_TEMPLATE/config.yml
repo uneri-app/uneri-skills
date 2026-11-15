@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or "how do I...?"
+    url: https://github.com/uneri-app/uneri-skills/discussions/categories/q-a
+    about: Ask in Q&A. Issues are for bugs and changes to existing skills.
+  - name: An idea for a new skill or workflow
+    url: https://github.com/uneri-app/uneri-skills/discussions/categories/ideas
+    about: Post it in Ideas. New skills do not start as issues.
+  - name: Contributing guide
+    url: https://github.com/uneri-app/uneri-skills/blob/main/CONTRIBUTING.md
+    about: Where each kind of request goes, and how pull requests work here.

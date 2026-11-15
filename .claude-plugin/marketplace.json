@@ -1,0 +1,13 @@
+{
+  "name": "uneri-app",
+  "owner": { "name": "Uneri" },
+  "description": "The uneri marketplace: the UDD/SDD backbone for Claude Code (use-case & spec-driven development, discovery through TDD implementation)",
+  "plugins": [
+    {
+      "name": "uneri-skills",
+      "displayName": "Uneri Skills",
+      "source": "./plugins/uneri-skills",
+      "description": "UDD/SDD skills for Claude Code: discovery through TDD implementation"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "uneri-skills",
+  "description": "The backbone for use-case-driven (UDD) and spec-driven (SDD) development: skills for Claude Code",
+  "version": "0.7.0",
+  "author": {
+    "name": "Uneri"
+  },
+  "homepage": "https://github.com/uneri-app/uneri-skills",
+  "repository": "https://github.com/uneri-app/uneri-skills",
+  "license": "MIT"
+}

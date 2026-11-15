@@ -1,0 +1,33 @@
+---
+title: uneri-skills
+description: Use-case-driven (UDD) and spec-driven (SDD) development, as skills for Claude Code.
+template: splash
+hero:
+  tagline: Count your work in use cases, not story points. From use case to spec, implementation and PR, as Claude Code skills.
+  actions:
+    - text: Install
+      link: getting-started/install/
+      icon: right-arrow
+    - text: Quick start
+      link: getting-started/first-run/
+      variant: minimal
+    - text: How big is a use case?
+      link: concepts/use-case-granularity/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="UDD" icon="pencil">
+    `/uneri-skills:udd-init` maps your domain and starts `use-cases.md`, a list of use cases with stable IDs (`UC-<CTX>-NNN`).
+  </Card>
+  <Card title="SDD" icon="rocket">
+    `/uneri-skills:sdd-init` turns one use case into a spec, then carries it through requirements, design, tasks, implementation and verification, all traced to the use case.
+  </Card>
+</CardGrid>
+
+```text
+/plugin marketplace add uneri-app/uneri-skills
+/plugin install uneri-skills@uneri-app
+```
