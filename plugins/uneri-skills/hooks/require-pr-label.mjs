@@ -207,7 +207,7 @@ function commandStart(tokens) {
   }
 }
 
-/** The command string of `bash -c '…'` / `sh -c` / `eval …`, so a `gh pr create` inside it is seen too; else null. */
+/** The command string a shell wrapper (its `-c` argument, or the words after the word that re-reads them) carries, so a `gh pr create` inside it is seen too; else null. */
 export function nestedCommand(tokens) {
   const start = commandStart(tokens);
   const name = (tokens[start] ?? '').replace(/^.*\//, '');
@@ -230,7 +230,7 @@ export function prCreateArgs(tokens) {
 
 /**
  * Every `gh pr create` in the command — its arguments and the directory it runs in (following plain `cd <dir>`
- * steps, restored when a subshell ends) — including those inside `$(…)`, `bash -c` and `eval`.
+ * steps, restored when a subshell ends) — including those nested in `$(…)` or in a shell wrapper's string.
  * Null when the command cannot be parsed (a quote left open).
  */
 export function prCreates(cmd, cwd = process.cwd()) {

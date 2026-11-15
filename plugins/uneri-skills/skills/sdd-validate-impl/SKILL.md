@@ -1,7 +1,7 @@
 ---
 name: sdd-validate-impl
 description: Validate feature-level integration after all tasks are implemented. Checks cross-task consistency, full test suite, and overall spec coverage, then persists a re-runnable verification.md sidecar.
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Agent
+allowed-tools: Read, Grep, Glob
 argument-hint: <feature-name> [task-numbers]
 ---
 

@@ -20,6 +20,11 @@ Skills are namespaced: `/uneri-skills:udd-init`, `/uneri-skills:sdd-init`, and s
 - **SDD:** `sdd-init`, `sdd-requirements`, `sdd-clarify`, `sdd-design`, `sdd-validate-design`, `sdd-validate-gap`, `sdd-tasks`, `sdd-impl`, `sdd-validate-impl`, `sdd-trace` (which also counts progress: implemented use cases out of active ones).
 - **Cross-cutting:** `steering`, `review`, `debug`, `verify-completion`, `adr`, `issue-upsert`, `pr-upsert`.
 
+## Requirements
+
+- **Node.js** runs the two hooks and the `adr` checker script. Nothing else is installed.
+- **The GitHub CLI (`gh`), signed in,** is needed only by `issue-upsert` and `pr-upsert`, and only for the GitHub remote they write to. The other skills work without it.
+
 ## What it runs, writes and sends
 
 Nothing is hidden. The plugin has no dependencies, makes no network requests of its own, and collects no data.

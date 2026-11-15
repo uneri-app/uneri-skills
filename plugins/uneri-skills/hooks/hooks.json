@@ -5,7 +5,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/inject-uneri-context.mjs\""
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/inject-uneri-context.mjs"]
           }
         ]
       }
@@ -16,7 +17,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/require-pr-label.mjs\""
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/require-pr-label.mjs"]
           }
         ]
       }
