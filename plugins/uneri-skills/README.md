@@ -22,7 +22,6 @@ Skills are namespaced: `/uneri-skills:udd-init`, `/uneri-skills:sdd-init`, and s
 
 ## Requirements
 
-- **Node.js** runs the two hooks and the `adr` checker script. Nothing else is installed.
 - **The GitHub CLI (`gh`), signed in,** is needed only by `issue-upsert` and `pr-upsert`, and only for the GitHub remote they write to. The other skills work without it.
 
 ## What it runs, writes and sends
@@ -32,8 +31,7 @@ Nothing is hidden. The plugin has no dependencies, makes no network requests of 
 - **Most skills** read and write Markdown and JSON files in your repository, under `.kiro/uneri/`, `.kiro/specs/` and `.kiro/steering/`.
 - **`sdd-impl`** writes source code, runs your tests, dispatches subagents and makes git commits. It does not start until the tasks are approved.
 - **`issue-upsert` and `pr-upsert`** call the GitHub CLI (`gh`) to create or update an issue or a pull request. They show you the exact commands and wait for your confirmation before pushing or writing anything.
-- **Two hooks**, both plain Node scripts that use only the Node standard library, act only in a project that has a `.uneri.json`: a session-start hook that adds a short summary of the workflow and the spec status to the session, and a hook that stops a `gh pr create` that carries none of the labels `UC-<CTX>-NNN`, `bug`, `enabler` or `chore`. Neither writes to your repository.
-- **`adr` ships a checker script** (`skills/adr/scripts/check-adr.mjs`) that only reads files.
+- **No hooks, no scripts.** The plugin is Markdown skills and templates only; it runs nothing of its own.
 
 ## Credits and license
 

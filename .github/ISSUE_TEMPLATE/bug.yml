@@ -1,5 +1,5 @@
-name: Bug in a skill or hook
-description: A skill did something wrong, or a hook blocked or injected something it should not have.
+name: Bug in a skill
+description: A skill did something wrong.
 labels: [bug]
 body:
   - type: input
@@ -12,7 +12,7 @@ body:
   - type: input
     id: skill
     attributes:
-      label: Skill or hook
+      label: Skill
       placeholder: "/uneri-skills:sdd-design"
     validations:
       required: true

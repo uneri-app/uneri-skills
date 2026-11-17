@@ -57,11 +57,11 @@ and name the spec or use case by its stable ID in the ADR's References. Never co
    References) and write the body in the project's language. Write the file with a single-value `status` in frontmatter (E-1/E-2) and the index row (title only, E-5).
    New ADRs start as `proposed`. `accepted` only after the human approves, and only with no open question left (G-1).
 6. Show the draft and write the file only after the human approves it; if they decline, discard it and write nothing.
-   Add the index row in the same change (E-3). Then run the checker (below) and fix every MUST before handing back. Then do the `J` pass for C, D-1, D-4, G, and read the draft against the failure patterns in the reference.
+   Add the index row in the same change (E-3). Then run the mechanical pass (below) and fix every MUST before handing back. Then do the `J` pass for C, D-1, D-4, G, and read the draft against the failure patterns in the reference.
 
 ## Mode: audit
 
-1. Run the checker. `--from NNNN` limits it to newer ADRs when older ones are grandfathered (existing ADRs predating
+1. Run the mechanical pass (below). Limit it to newer ADRs when older ones are grandfathered (existing ADRs predating
    a rule are not rewritten; their problems are reported, not auto-fixed).
 2. For the files the user selects (or the newest ones by default), do the `J` pass by rule ID: C-1, C-2, C-3, D-1,
    D-3, D-4, E-4, F-1, G-1/G-2, using the failure patterns in the reference to explain what went wrong. Quote the
@@ -85,16 +85,21 @@ Use before changing code in an area that may be governed by a decision, or when 
 dependency, introduce a pattern other code will have to follow, choose between real alternatives with non-obvious
 trade-offs, contradict an accepted ADR, or find yourself writing a long comment explaining *why*.
 
-## The checker
+## The mechanical pass
 
-```bash
-node scripts/check-adr.mjs [ADR directory] [--from NNNN]   # run from this skill's directory
-```
+There is no script: do the `M` rules of the reference by reading the ADR files (Read, Grep, Glob). With no directory given, look in
+`docs/adr`, `docs/adrs`, `docs/decisions`, `doc/adr`, `adr`, `decisions`, in that order, and stop with a message if none holds ADR files
+(`NNNN-title.md`). Cover A-1, B-1, B-3, D-1 (checkboxes), D-2, D-5, E-1, E-2, E-3, E-5, F-2:
 
-With no directory it searches the same candidates as above. Covers A-1, B-1, B-3, D-1 (checkboxes), D-2, D-5, E-1, E-2, E-3, E-5, F-2. Exit 1 when any MUST is violated, 2 when no ADR directory is found.
-Checks that cannot run on the project's format (for example, no index table) are listed as `Not checked` and are not
-reported as violations.
-It is a signal, not a verdict: the `J` rules still need reading.
+- Grep each ADR for ticket, issue and PR numbers (A-1), line-number references (B-1), checkbox lists and progress words (D-1), and
+  "last updated" fields (F-2).
+- Check that every relative link resolves to a file that exists (B-3).
+- Check the headings (D-2), the single-value `status` from the closed set (E-1, E-2), and that the index row agrees with it (E-1, E-3) and carries
+  a title of at most 100 characters (E-5).
+- Count lines: more than about 150 is a signal (D-5).
+
+Report by rule ID with file and line, MUST before SHOULD. A check that cannot run on the project's format (for example, no index table) is
+listed as `Not checked`, never reported as a violation. It is a signal, not a verdict: the `J` rules still need reading.
 
 ## Out of scope
 

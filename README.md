@@ -101,14 +101,7 @@ Most skills only read and write local files. Three have side effects:
 - **`/uneri-skills:sdd-impl`** writes source code, runs tests, dispatches subagents and makes git commits. It will not start until the tasks are approved, and then runs to the end.
 - **`/uneri-skills:issue-upsert`** and **`/uneri-skills:pr-upsert`** write to GitHub through `gh`. They always show you the exact commands and wait for your confirmation before pushing or writing anything.
 
-## Hooks
-
-Both hooks act only in a project that has a `.uneri.json`, and neither writes to your repository.
-
-- **SessionStart** loads a compact map of the workflow and the status of each spec into the session.
-- **PreToolUse (Bash)** stops a `gh pr create` that has none of the labels `UC-<CTX>-NNN`, `bug`, `enabler` or `chore`, and points you to `/uneri-skills:pr-upsert`.
-
-### About the labels
+## About the labels
 
 The labels tell what each pull request is for: a use case, a defect, planned technical work, or housekeeping.
 They also let you filter the pull request list by use case. Nothing else depends on them.

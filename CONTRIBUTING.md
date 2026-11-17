@@ -6,7 +6,7 @@ uneri-skills is a public beta (0.x). The file formats (`use-cases.md`, `spec.jso
 
 | You have                            | Go to                                                                                        |
 | ----------------------------------- | -------------------------------------------------------------------------------------------- |
-| A bug in a skill or a hook          | [Bug issue](https://github.com/uneri-app/uneri-skills/issues/new?template=bug.yml)           |
+| A bug in a skill                    | [Bug issue](https://github.com/uneri-app/uneri-skills/issues/new?template=bug.yml)           |
 | A change to an existing skill       | [Change issue](https://github.com/uneri-app/uneri-skills/issues/new?template=change.yml)     |
 | A question, or "how do I...?"       | [Discussions: Q&A](https://github.com/uneri-app/uneri-skills/discussions/categories/q-a)     |
 | An idea for a new skill or workflow | [Discussions: Ideas](https://github.com/uneri-app/uneri-skills/discussions/categories/ideas) |

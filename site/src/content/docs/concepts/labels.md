@@ -36,8 +36,8 @@ gh pr list    --label UC-SHP-001 --state all   # every pull request that did its
   `gh` **when the pull request or issue is created**, so one is never opened unlabelled. If the label does not exist yet, they create it
   (`gh label create`, a name and the description "Use case UC-<CTX>-NNN") before using it, and reuse an existing label as it is.
 - Both show the exact `gh` command and wait for your confirmation before they write to GitHub.
-- The [PreToolUse hook](../../guides/hooks/) is a safety net: in a project with `.uneri.json`, it blocks a `gh pr create` that carries none of
-  `UC-<CTX>-NNN`, `bug`, `enabler` or `chore`, and points you to `pr-upsert`.
+- Nothing stops a `gh pr create` typed by hand with no label: the plugin ships no hook. Ask Claude to open the pull request through `pr-upsert`
+  so it is labelled.
 - `issue-upsert` also keeps an **implementation record** in a use case's issue: the pull requests that did the work (linked to the issue, or labelled with the use case).
 
 ## Using it yourself

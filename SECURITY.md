@@ -1,6 +1,6 @@
 # Security policy
 
-uneri-skills is a set of Markdown skills and two small hooks. It reads and writes local files, and `issue-upsert` and `pr-upsert` call `gh` after you confirm the exact commands.
+uneri-skills is a set of Markdown skills and templates. It has no hooks and no scripts. It reads and writes local files, and `issue-upsert` and `pr-upsert` call `gh` after you confirm the exact commands.
 
 ## Reporting a vulnerability
 

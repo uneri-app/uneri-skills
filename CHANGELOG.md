@@ -5,6 +5,13 @@
 The plugin now passes the plugin directory's pre-submission checks without blocking issues. Nothing in the file formats
 (`use-cases.md`, `spec.json`) changes.
 
+### Removed
+
+- **The plugin ships no hooks and no scripts.** The directory accepts command hooks and scripts only from Verified organizations, so the two hooks
+  and the `adr` checker script are gone. The session-start summary of the workflow and of each spec's status no longer appears; ask Claude for the
+  status (`/uneri-skills:sdd-trace`). A `gh pr create` typed by hand is no longer stopped when it carries no label: open pull requests through
+  `/uneri-skills:pr-upsert`, which always labels. The `adr` skill now does its mechanical checks by reading the files.
+
 ### Changed
 
 - **Skills no longer pre-approve `Bash`, `Write`, `Edit`, `Agent` or the web tools.** Eight skills (`debug`, `review`, `adr`,
@@ -12,7 +19,7 @@ The plugin now passes the plugin directory's pre-submission checks without block
   only. Depending on your permission settings, Claude Code may now ask before a skill runs a command or writes a file, which can interrupt
   a long `sdd-impl` run; allow the commands you trust in your own settings.
 - The `description` of `issue-upsert` and `pr-upsert` is shorter (about 560 characters instead of about 1,000), so it takes less of the skill list.
-- The plugin ships an icon (`.claude-plugin/icon.png`), the hooks are declared as `command` + `args`, and the plugin README lists its requirements.
+- The plugin ships an icon (`.claude-plugin/icon.png`), and the plugin README lists its requirements.
 
 ### Added
 
@@ -22,7 +29,7 @@ The plugin now passes the plugin directory's pre-submission checks without block
   and a skills reference that groups the skills into UDD, SDD and cross-cutting, explains the split, and gives every skill a one-line summary
   (each skill's page keeps its description for Claude under "When Claude picks it"). The skills page headings are in English.
   [Labels and traceability](concepts/labels/) (how `UC-<CTX>-NNN`, `bug`, `enabler` and `chore` labels tie issues and pull requests to a use case),
-  [Upgrading and compatibility](guides/upgrading/) (what stays compatible, versions and the changelog), a fuller [Hooks](guides/hooks/) page, and a
+  [Upgrading and compatibility](guides/upgrading/) (what stays compatible, versions and the changelog), and a
   home page that says what you get. The home page title no longer repeats the site name.
 
 ### Fixed

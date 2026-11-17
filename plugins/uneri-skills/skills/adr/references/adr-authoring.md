@@ -3,7 +3,7 @@
 The single source of the rules the `adr` skill applies, for writers and reviewers alike.
 
 Strength: **MUST** = required. **SHOULD** = default; deviate only with a reason you can state.
-Check: **M** = mechanical (script can decide), **J** = judgment (the skill reasons about it).
+Check: **M** = mechanical (a plain read or search can decide), **J** = judgment (the skill reasons about it).
 
 Contents: [Boundary](#boundary-what-an-adr-is-and-is-not) · [When an ADR is warranted](#when-an-adr-is-warranted)
 · [A. What to reference](#a-what-to-reference-and-where) · [B. How to point](#b-how-to-point-at-things)
