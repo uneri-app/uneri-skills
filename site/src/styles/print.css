@@ -1,0 +1,37 @@
+/* Print and PDF: drop the site chrome so a page (the cheatsheet, mainly) fits on landscape paper. */
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+@media print {
+  header.header,
+  .sidebar-pane,
+  .right-sidebar-container,
+  mobile-starlight-toc,
+  nav.pagination-links,
+  footer {
+    display: none !important;
+  }
+
+  .main-pane,
+  .content-panel,
+  .sl-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  .sl-markdown-content {
+    font-size: 8.5pt;
+  }
+
+  .sl-markdown-content table {
+    font-size: 8pt;
+    width: 100%;
+  }
+
+  .sl-markdown-content pre {
+    font-size: 7.5pt;
+  }
+}

@@ -1,12 +1,19 @@
 ---
 title: "/uneri-skills:debug"
-description: "Investigate implementation failures using root-cause-first debugging. Use when an implementer is blocked, verification fails, or repeated remediation does not converge."
+description: "Root-cause-first investigation"
 ---
 
-Investigate implementation failures using root-cause-first debugging. Use when an implementer is blocked, verification fails, or repeated remediation does not converge.
+Root-cause-first investigation.
+Part of: Cross-cutting. See [all skills](./).
 
-## 使い方
+## Usage
 
 ```text
 /uneri-skills:debug <failure-summary>
 ```
+
+## When Claude picks it
+
+This is the skill's own description, which Claude reads to decide when to use it:
+
+> Investigate implementation failures using root-cause-first debugging. Use when an implementer is blocked, verification fails, or repeated remediation does not converge.

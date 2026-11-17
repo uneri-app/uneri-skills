@@ -1,5 +1,5 @@
 ---
-title: uneri-skills
+title: Use cases, specs and pull requests, as skills
 description: Use-case-driven (UDD) and spec-driven (SDD) development, as skills for Claude Code.
 template: splash
 hero:
@@ -27,7 +27,33 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   </Card>
 </CardGrid>
 
+## The problem
+
+*Where are we in the whole, and how far along are we?* Counting epics, story points or API endpoints never answered it: with several people, and now AI, on the work, those units are not the same size. uneri fixes the unit: one use case is one goal that one actor achieves in one sitting. Read [why use cases](concepts/why-use-cases/).
+
+## What you get
+
+Every item of work is the same kind of thing: a use case with a stable ID. The ID follows the work from the first sketch to the merged pull request, so the number of use cases you have finished can be your measure of progress.
+
+```text
+udd-init ─▶ udd-add ─▶ sdd-init ─▶ requirements ─▶ clarify ─▶ design ─▶ tasks ─▶ sdd-impl ─▶ sdd-validate-impl ─▶ pr-upsert
+ (domain)   (use cases)   (one use case = one spec, an approval at each step)      (TDD)        (GO / NO-GO)        (labelled PR)
+```
+
+- **Files you own.** Use cases live in `.kiro/uneri/use-cases.md` and specs in `.kiro/specs/`. They are plain Markdown and JSON in your repository, not in a service.
+- **Approvals before code.** `sdd-impl` refuses to start until requirements, design and tasks are approved.
+- **Traceable.** A spec points to its use case (`traces_uc`), and a pull request or issue carries the `UC-<CTX>-NNN` label.
+- **Nothing leaves your machine** except the `gh` commands of `issue-upsert` and `pr-upsert`, each of which waits for your confirmation.
+
+## Status
+
+uneri-skills is a public beta. The file formats (`use-cases.md`, `spec.json`) are kept compatible; the wording and steps of the skills may still change. See [Upgrading and compatibility](guides/upgrading/).
+
+## Install
+
 ```text
 /plugin marketplace add uneri-app/uneri-skills
 /plugin install uneri-skills@uneri-app
 ```
+
+Then follow the [quick start](getting-started/first-run/). Skills that run commands may ask for permission the first time; see [Permissions](guides/permissions/).

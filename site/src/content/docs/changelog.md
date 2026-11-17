@@ -2,6 +2,36 @@
 title: "Changelog"
 ---
 
+## 0.8.0
+
+The plugin now passes the plugin directory's pre-submission checks without blocking issues. Nothing in the file formats
+(`use-cases.md`, `spec.json`) changes.
+
+### Changed
+
+- **Skills no longer pre-approve `Bash`, `Write`, `Edit`, `Agent` or the web tools.** Eight skills (`debug`, `review`, `adr`,
+  `sdd-validate-design`, `sdd-validate-gap`, `sdd-validate-impl`, `sdd-impl`, `verify-completion`) declare `allowed-tools: Read, Grep, Glob`
+  only. Depending on your permission settings, Claude Code may now ask before a skill runs a command or writes a file, which can interrupt
+  a long `sdd-impl` run; allow the commands you trust in your own settings.
+- The `description` of `issue-upsert` and `pr-upsert` is shorter (about 560 characters instead of about 1,000), so it takes less of the skill list.
+- The plugin ships an icon (`.claude-plugin/icon.png`), the hooks are declared as `command` + `args`, and the plugin README lists its requirements.
+
+### Added
+
+- Documentation: [Permissions](guides/permissions/) (which skills run commands or write files, and how to allow what you trust),
+  [Why use cases](concepts/why-use-cases/) (the problem uneri starts from), [Credits and licence](reference/credits/),
+  a one-page [Cheatsheet](reference/cheatsheet/) (the order, what each skill produces and runs, the gates; print it landscape or save it as a PDF),
+  and a skills reference that groups the skills into UDD, SDD and cross-cutting, explains the split, and gives every skill a one-line summary
+  (each skill's page keeps its description for Claude under "When Claude picks it"). The skills page headings are in English.
+  [Labels and traceability](concepts/labels/) (how `UC-<CTX>-NNN`, `bug`, `enabler` and `chore` labels tie issues and pull requests to a use case),
+  [Upgrading and compatibility](guides/upgrading/) (what stays compatible, versions and the changelog), a fuller [Hooks](guides/hooks/) page, and a
+  home page that says what you get. The home page title no longer repeats the site name.
+
+### Fixed
+
+- The documentation site is published to GitHub Pages. Its build workflow now uses Node 22 (the site generator needs Node 22.23 or later; the
+  action's default, Node 20, stopped the build), and the link check no longer passes an option that the current link checker rejects.
+
 ## 0.7.0
 
 The first public release, a public beta. The file formats (`use-cases.md`, `spec.json`) are kept compatible; the wording and steps of the

@@ -1,0 +1,79 @@
+---
+title: "Cheatsheet"
+description: "One page: the order to run the skills in, what each one produces, and the gates."
+---
+
+import { Badge } from '@astrojs/starlight/components';
+
+One page for the whole flow. Print it (landscape) or save it as a PDF from your browser. The reasons behind the grouping are on the [skills page](../skills/).
+
+## The order
+
+```text
+(steering) ─▶ udd-init ─▶ udd-add ─▶ udd-validate ─▶ (udd-arrange)
+
+then, one use case at a time:
+
+sdd-init ─▶ sdd-requirements ─▶ sdd-clarify ─▶ sdd-design ─▶ sdd-validate-design
+        ─▶ (sdd-validate-gap: existing code only) ─▶ sdd-tasks ─▶ sdd-impl
+        ─▶ sdd-validate-impl ─▶ pr-upsert
+
+sdd-trace audits use cases, specs and tasks across the project, at any time.
+```
+
+- `steering` is optional, and recommended for a multi-context project. Write one use case, validate, repeat.
+- `review`, `debug` and `verify-completion` are called by `sdd-impl` for each task; you can also run them alone.
+- `issue-upsert` and `pr-upsert` can run at any point, from a use case or an implementation branch.
+
+## UDD: find and write use cases
+
+| Skill | What it does | What it produces | Runs |
+| --- | --- | --- | --- |
+| [`/uneri-skills:udd-init`](../skills/udd-init/) | Entry point: language, light EventStorming, and the `use-cases.md` scaffold | `.uneri.json`, `.kiro/uneri/{domain-model,actors,glossary,use-cases}.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:udd-add`](../skills/udd-add/) | Append one use case with an auto-numbered, immutable ID | One entry appended to `.kiro/uneri/use-cases.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:udd-validate`](../skills/udd-validate/) | Check `use-cases.md` for duplicates, gaps and missing fields | Validation report (read-only) | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:udd-arrange`](../skills/udd-arrange/) | Reorder the use cases by the user's journey, without changing any ID | `use-cases.md` reordered once, after you approve the proposal | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:udd-authoring`](../skills/udd-authoring/) | The conventions the UDD skills follow: ID system, notation, size of a use case | None (a knowledge skill) | <Badge text="local" variant="note" /> |
+
+## SDD: from spec to implementation
+
+| Skill | What it does | What it produces | Runs |
+| --- | --- | --- | --- |
+| [`/uneri-skills:sdd-init`](../skills/sdd-init/) | Seed a spec from one use case | `.kiro/specs/<NNN-slug>/spec.json` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-requirements`](../skills/sdd-requirements/) | Generate EARS requirements from the use case's scenarios | `requirements.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-clarify`](../skills/sdd-clarify/) | Surface ambiguities before design | Clarifications added to `requirements.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-design`](../skills/sdd-design/) | Generate the design, with explicit in-scope and out-of-boundary commitments | `design.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-validate-design`](../skills/sdd-validate-design/) | Review the design before implementation | Review result (gate: GO before `sdd-tasks` / `sdd-impl`) | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-validate-gap`](../skills/sdd-validate-gap/) | Analyze the gap with an existing codebase (brownfield) | Gap report (brownfield only, between design and `sdd-tasks`) | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-tasks`](../skills/sdd-tasks/) | Break the design into a checkbox task list | `tasks.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:sdd-impl`](../skills/sdd-impl/) | Implement approved tasks with TDD and subagents | Source code, tests, git commits | <Badge text="code + git" variant="caution" /> |
+| [`/uneri-skills:sdd-validate-impl`](../skills/sdd-validate-impl/) | GO / NO-GO gate after all tasks are implemented | Verdict (GO / NO-GO) | <Badge text="runs tests" variant="success" /> |
+| [`/uneri-skills:sdd-trace`](../skills/sdd-trace/) | Audit use case ↔ spec ↔ requirement ↔ task consistency, and count progress | Consistency report (read-only) | <Badge text="local" variant="note" /> |
+
+## Cross-cutting
+
+| Skill | What it does | What it produces | Runs |
+| --- | --- | --- | --- |
+| [`/uneri-skills:steering`](../skills/steering/) | Project-wide steering docs (product, tech, structure) | `.kiro/steering/{product,tech,structure}.md` | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:review`](../skills/review/) | Review a task against its spec and boundaries | Review result | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:debug`](../skills/debug/) | Root-cause-first investigation | Findings | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:verify-completion`](../skills/verify-completion/) | Verify a "done" claim with fresh evidence | Verification result | <Badge text="local" variant="note" /> |
+| [`/uneri-skills:issue-upsert`](../skills/issue-upsert/) | Create or update one GitHub issue (a use case's, or `bug` / `enabler` / `chore`) | Issue body and label, through `gh` | <Badge text="GitHub (gh)" variant="tip" /> |
+| [`/uneri-skills:pr-upsert`](../skills/pr-upsert/) | Create or update the current branch's pull request, always labelled | Pull request title, body and label, through `git push` and `gh` | <Badge text="GitHub (gh)" variant="tip" /> |
+| [`/uneri-skills:adr`](../skills/adr/) | Draft, audit or consult Architecture Decision Records | ADR files (default directory `docs/adr`) | <Badge text="local" variant="note" /> |
+
+## Gates
+
+Move on only when the gate says GO.
+
+| Gate | When | What it checks |
+| --- | --- | --- |
+| `sdd-validate-design` | Before `sdd-tasks` and `sdd-impl` | The quality of `design.md` |
+| `sdd-validate-gap` | After the design, before `sdd-tasks` (existing code only) | The gap between the design and the codebase |
+| `sdd-validate-impl` | After all tasks are implemented | The feature as a whole: GO / NO-GO |
+
+`sdd-impl` will not start until requirements, design and tasks are approved.
+
+## Example IDs
+
+Domain `order` (context `ORD`): use case `UC-ORD-001` "A customer places an order", spec `.kiro/specs/001-customer-places-order/`. A walk-through is in the [practical manual](../../guides/manual/).
