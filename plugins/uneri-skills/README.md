@@ -17,7 +17,7 @@ Skills are namespaced: `/uneri-skills:udd-init`, `/uneri-skills:sdd-init`, and s
 ## What is in it
 
 - **UDD:** `udd-init`, `udd-add`, `udd-validate`, `udd-arrange`, and the `udd-authoring` knowledge skill.
-- **SDD:** `sdd-init`, `sdd-requirements`, `sdd-clarify`, `sdd-design`, `sdd-validate-design`, `sdd-validate-gap`, `sdd-tasks`, `sdd-impl`, `sdd-validate-impl`, `sdd-trace` (which also counts progress: implemented use cases out of active ones).
+- **SDD:** `sdd-init`, `sdd-requirements`, `sdd-clarify`, `sdd-design`, `sdd-validate-design`, `sdd-validate-gap`, `sdd-tasks`, `sdd-impl`, `sdd-validate-impl`, `sdd-compact`, `sdd-trace` (which also counts progress: implemented use cases out of active ones).
 - **Cross-cutting:** `steering`, `review`, `debug`, `verify-completion`, `adr`, `issue-upsert`, `pr-upsert`.
 
 ## Requirements
@@ -29,9 +29,12 @@ Skills are namespaced: `/uneri-skills:udd-init`, `/uneri-skills:sdd-init`, and s
 Nothing is hidden. The plugin has no dependencies, makes no network requests of its own, and collects no data.
 
 - **Most skills** read and write Markdown and JSON files in your repository, under `.kiro/uneri/`, `.kiro/specs/` and `.kiro/steering/`.
-- **`sdd-impl`** writes source code, runs your tests, dispatches subagents and makes git commits. It does not start until the tasks are approved.
+- **`sdd-impl`** writes source code, runs your tests, dispatches subagents and makes git commits, in your repository and at your direction. It runs the commands your project already defines (your test runner and checks, and `git`); it adds no commands of its own, installs nothing, and sends nothing off your machine except what you push yourself. It does not start until the tasks are approved.
 - **`issue-upsert` and `pr-upsert`** call the GitHub CLI (`gh`) to create or update an issue or a pull request. They show you the exact commands and wait for your confirmation before pushing or writing anything.
+- **Web research.** `sdd-validate-gap`, `debug` and the debugger step of `sdd-impl` may ask Claude to search the web, under your permission settings.
 - **No hooks, no scripts.** The plugin is Markdown skills and templates only; it runs nothing of its own.
+
+The full statement is in [`PRIVACY.md`](PRIVACY.md).
 
 ## Credits and license
 

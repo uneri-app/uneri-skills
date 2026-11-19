@@ -12,7 +12,8 @@ mechanical `M` or judgment `J`). Read it before doing any mode. Do not restate t
 
 ## Where things are
 
-- **ADR directory**: never assume it. Look in this order and stop at the first hit: the project's steering or
+- **ADR directory**: never assume it. Look in this order and stop at the first hit: the line `ADR directory: <path>` in
+  `.kiro/steering/tech.md` (if the path does not exist, say so and ask), then the project's other steering or
   contributor docs, then `docs/adr`, `docs/adrs`, `docs/decisions`, `doc/adr`, `adr`, `decisions`. If none has ADR files,
   ask the user where they live; for a first ADR in `draft` mode, propose `docs/adr` and wait for a yes before creating it.
 - **Existing conventions win**: match the project's file naming (`001-…` or `0001-…`), status notation (frontmatter,
@@ -41,6 +42,9 @@ and name the spec or use case by its stable ID in the ADR's References. Never co
 0. **No ADR directory yet?** Ask before creating anything. With a yes, create it (default `docs/adr`), seed the index
    from `assets/index.md` as `README.md`, and put `assets/adr-template.md` there as `template.md` for manual use.
    Without a yes, create nothing and show the draft in the conversation only.
+   Also propose one line, `ADR directory: <path>`, for the *Architecture decisions* section of `.kiro/steering/tech.md`, so
+   the next run does not have to search. Add it under the same yes, and only when `tech.md` exists and has no such line; never
+   create `tech.md` for it, and when it does not exist just tell the user the line.
 1. Read `references/adr-authoring.md`, the index, and the ADRs the topic touches (decisions it may replace or amend).
    First check "When an ADR is warranted"; if it is not, say so and stop (a code comment or PR description will do).
 2. Ask only for what you cannot derive: the **actual problem in this project** (C-2), the options that were really

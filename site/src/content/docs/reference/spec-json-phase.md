@@ -6,32 +6,28 @@ description: How the phase field in spec.json moves, and which skill writes it.
 This page defines how the `phase` field of `.kiro/specs/<slug>/spec.json` changes: which `sdd-*` skill writes which value, and under which gate.
 uneri-skills is the **producer** of this field. Tools that read `spec.json` (dashboards, other tooling) follow this contract, not the other way around.
 
-## 1. State diagram
+## 1. State transitions
 
-```mermaid
-stateDiagram-v2
-    [*] --> initialized: sdd-init
-    initialized --> requirements_generated: sdd-requirements
-    requirements_generated --> clarified: sdd-clarify
-    clarified --> design_generated: sdd-design
-    design_generated --> tasks_generated: sdd-tasks
-    tasks_generated --> implemented: sdd-validate-impl\n(GO verdict)
+Forward, one step at a time. `[start]` is the moment the spec directory is created.
 
-    design_generated --> design_generated: reopen sdd-design\n(the design itself was wrong)
-    tasks_generated --> design_generated: reopen sdd-design
-    implemented --> design_generated: reopen sdd-design
+| From                     | To                       | Skill                                      |
+| ------------------------ | ------------------------ | ------------------------------------------ |
+| `[start]`                | `initialized`            | `sdd-init`                                 |
+| `initialized`            | `requirements-generated` | `sdd-requirements`                         |
+| `requirements-generated` | `clarified`              | `sdd-clarify`                              |
+| `clarified`              | `design-generated`       | `sdd-design`                               |
+| `design-generated`       | `tasks-generated`        | `sdd-tasks`                                |
+| `tasks-generated`        | `implemented`            | `sdd-validate-impl` (only on a GO verdict) |
 
-    design_generated --> clarified: reopen sdd-clarify\n(a clarification answer was wrong)
-    tasks_generated --> clarified: reopen sdd-clarify
-    implemented --> clarified: reopen sdd-clarify
+Back, by reopening (section 2.1). A reopen overwrites `phase` with the value of the skill you re-run, and resets the approvals below it:
 
-    clarified --> requirements_generated: reopen sdd-requirements\n(the acceptance criteria were wrong)
-    design_generated --> requirements_generated: reopen sdd-requirements
-    tasks_generated --> requirements_generated: reopen sdd-requirements
-    implemented --> requirements_generated: reopen sdd-requirements
+| Reopen with        | `phase` becomes          | Allowed from                                                                                           |
+| ------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `sdd-design`       | `design-generated`       | `design-generated` (the design itself was wrong), `tasks-generated`, `implemented`                     |
+| `sdd-clarify`      | `clarified`              | `design-generated` (a clarification answer was wrong), `tasks-generated`, `implemented`                |
+| `sdd-requirements` | `requirements-generated` | `clarified`, `design-generated`, `tasks-generated`, `implemented` (the acceptance criteria were wrong) |
 
-    implemented --> [*]
-```
+`implemented` is the only end state.
 
 `phase` is a simple line that only moves forward. Each `sdd-*` skill advances it **right after it writes its own output**.
 The only end state is `implemented`. There is no separate `validated` state: `implemented` is only reached through a GO verdict from `sdd-validate-impl`, so it already means "verified".

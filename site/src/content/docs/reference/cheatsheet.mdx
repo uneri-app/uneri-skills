@@ -18,7 +18,7 @@ sdd-init ─▶ sdd-requirements ─▶ sdd-clarify ─▶ sdd-design ─▶ sdd
         ─▶ (sdd-validate-gap: existing code only) ─▶ sdd-tasks ─▶ sdd-impl
         ─▶ sdd-validate-impl ─▶ pr-upsert
 
-sdd-trace audits use cases, specs and tasks across the project, at any time.
+sdd-compact tidies one spec whose history or drift has built up; sdd-trace audits use cases, specs and tasks across the project. Both can run at any time.
 ```
 
 - `steering` is optional, and recommended for a multi-context project. Write one use case, validate, repeat.
@@ -48,6 +48,7 @@ sdd-trace audits use cases, specs and tasks across the project, at any time.
 | [`/uneri-skills:sdd-tasks`](../skills/sdd-tasks/) | Break the design into a checkbox task list | `tasks.md` | <Badge text="local" variant="note" /> |
 | [`/uneri-skills:sdd-impl`](../skills/sdd-impl/) | Implement approved tasks with TDD and subagents | Source code, tests, git commits | <Badge text="code + git" variant="caution" /> |
 | [`/uneri-skills:sdd-validate-impl`](../skills/sdd-validate-impl/) | GO / NO-GO gate after all tasks are implemented | Verdict (GO / NO-GO) | <Badge text="runs tests" variant="success" /> |
+| [`/uneri-skills:sdd-compact`](../skills/sdd-compact/) | Rewrite a spec to describe the present: fold history, fix drift, make it self-contained | Rewritten `requirements.md` and `design.md` (report of what changed) | <Badge text="local" variant="note" /> |
 | [`/uneri-skills:sdd-trace`](../skills/sdd-trace/) | Audit use case ↔ spec ↔ requirement ↔ task consistency, and count progress | Consistency report (read-only) | <Badge text="local" variant="note" /> |
 
 ## Cross-cutting

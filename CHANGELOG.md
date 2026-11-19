@@ -23,13 +23,13 @@ The plugin now passes the plugin directory's pre-submission checks without block
 
 ### Added
 
-- Documentation: [Permissions](guides/permissions/) (which skills run commands or write files, and how to allow what you trust),
-  [Why use cases](concepts/why-use-cases/) (the problem uneri starts from), [Credits and licence](reference/credits/),
-  a one-page [Cheatsheet](reference/cheatsheet/) (the order, what each skill produces and runs, the gates; print it landscape or save it as a PDF),
+- Documentation: [Permissions](https://uneri-app.github.io/uneri-skills/guides/permissions/) (which skills run commands or write files, and how to allow what you trust),
+  [Why use cases](https://uneri-app.github.io/uneri-skills/concepts/why-use-cases/) (the problem uneri starts from), [Credits and licence](https://uneri-app.github.io/uneri-skills/reference/credits/),
+  a one-page [Cheatsheet](https://uneri-app.github.io/uneri-skills/reference/cheatsheet/) (the order, what each skill produces and runs, the gates; print it landscape or save it as a PDF),
   and a skills reference that groups the skills into UDD, SDD and cross-cutting, explains the split, and gives every skill a one-line summary
   (each skill's page keeps its description for Claude under "When Claude picks it"). The skills page headings are in English.
-  [Labels and traceability](concepts/labels/) (how `UC-<CTX>-NNN`, `bug`, `enabler` and `chore` labels tie issues and pull requests to a use case),
-  [Upgrading and compatibility](guides/upgrading/) (what stays compatible, versions and the changelog), and a
+  [Labels and traceability](https://uneri-app.github.io/uneri-skills/concepts/labels/) (how `UC-<CTX>-NNN`, `bug`, `enabler` and `chore` labels tie issues and pull requests to a use case),
+  [Upgrading and compatibility](https://uneri-app.github.io/uneri-skills/guides/upgrading/) (what stays compatible, versions and the changelog), and a
   home page that says what you get. The home page title no longer repeats the site name.
 
 ### Fixed

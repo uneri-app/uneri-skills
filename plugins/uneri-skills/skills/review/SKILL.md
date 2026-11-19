@@ -132,6 +132,12 @@ Run these checks and use the result as primary signal.
 - Reject if the implementation creates new hidden dependencies, shared ownership, or undeclared coupling across adjacent boundaries.
 - Reject if a task that is not an explicit integration task now behaves like one.
 
+### 10.6 Decision Record
+
+- If the diff adds a dependency, introduces a pattern other code will have to follow, or chooses between real alternatives with non-obvious trade-offs, check that `design.md` or an ADR records the decision.
+- If it does not, report a `Suggestion` and point to `/uneri-skills:adr draft spec:{feature}`. Do not reject for this alone, and do not write the ADR.
+- If the diff contradicts an accepted ADR (the project's ADR directory; see `/uneri-skills:adr`), report it as `Important`: the ADR is changed by a new ADR that supersedes it, not by the code.
+
 ### 11. Test Quality
 
 - Confirm tests prove the required behavior rather than only scaffolding.

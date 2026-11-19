@@ -54,7 +54,7 @@ Split content like cc-sdd's EARS rule (fixed tokens stay canonical, variable tex
 
 - **Keep canonical / verbatim in every language:** frontmatter key `inclusion`; context-code
   format `<CTX>` (uppercase); path references `.kiro/steering/`, `.kiro/uneri/`; file names
-  `product.md` / `tech.md` / `structure.md`.
+  `product.md` / `tech.md` / `structure.md`; the label `ADR directory:` (it is searched for).
 - **Localize to the target language:** the title, section headings, explanatory prose, and
   placeholder guidance comments.
 
@@ -124,7 +124,9 @@ inclusion: manual
 
 ## Architecture decisions
 
-<!-- Notable decisions or trade-offs not already captured in a spec. Summarize; link to ADRs if any. -->
+<!-- Notable decisions or trade-offs not already captured in a spec. Summarize; link to ADRs if any.
+     If the project keeps ADRs, name their directory on one line, exactly: `ADR directory: <path>`
+     (for example `ADR directory: docs/adr`). `/uneri-skills:adr` reads that line first. -->
 ```
 
 ### `structure.md`

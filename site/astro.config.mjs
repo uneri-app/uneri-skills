@@ -53,6 +53,7 @@ export default defineConfig({
                 'reference/skills/sdd-tasks',
                 'reference/skills/sdd-impl',
                 'reference/skills/sdd-validate-impl',
+                'reference/skills/sdd-compact',
                 'reference/skills/sdd-trace',
               ],
             },

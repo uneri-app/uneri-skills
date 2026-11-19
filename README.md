@@ -76,6 +76,7 @@ Full documentation, including a worked example: **<https://uneri-app.github.io/u
 | `/uneri-skills:sdd-tasks`           | Break the design into a checkbox task list                                  |
 | `/uneri-skills:sdd-impl`            | Implement approved tasks with TDD and subagents                             |
 | `/uneri-skills:sdd-validate-impl`   | GO / NO-GO gate after all tasks are implemented                             |
+| `/uneri-skills:sdd-compact`         | Rewrite a spec to describe the present: fold history, fix drift             |
 | `/uneri-skills:sdd-trace`           | Audit use case ↔ spec ↔ requirement ↔ task consistency, and count progress  |
 
 ### Cross-cutting

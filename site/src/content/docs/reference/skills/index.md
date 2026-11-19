@@ -23,6 +23,7 @@ Decide **how** to build one use case, and build it. One use case becomes one spe
 | Skill | What it does |
 | --- | --- |
 | [`/uneri-skills:sdd-clarify`](./sdd-clarify/) | Surface ambiguities before design |
+| [`/uneri-skills:sdd-compact`](./sdd-compact/) | Rewrite a spec to describe the present: fold history, fix drift, make it self-contained |
 | [`/uneri-skills:sdd-design`](./sdd-design/) | Generate the design, with explicit in-scope and out-of-boundary commitments |
 | [`/uneri-skills:sdd-impl`](./sdd-impl/) | Implement approved tasks with TDD and subagents |
 | [`/uneri-skills:sdd-init`](./sdd-init/) | Seed a spec from one use case |

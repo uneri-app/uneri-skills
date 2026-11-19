@@ -10,15 +10,15 @@ whether it runs, so Claude Code may ask before a skill runs a command or writes 
 
 ## What to expect
 
-| Skill                                                       | Commands                                          | Files                                                |
-| ----------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------- |
-| `sdd-impl`, `sdd-validate-impl`                             | Yes: your test runner and checks, and `git`       | Your source, tests and spec files                    |
-| `debug`, `review`, `verify-completion`                      | Yes: `git`, your test runner                      | None                                                 |
-| `adr`                                                       | None                                              | ADR files                                            |
-| `sdd-validate-gap`                                          | None                                              | `research.md` in the spec folder; may search the web |
-| `sdd-validate-design`                                       | None                                              | None (read-only)                                     |
-| `udd-*`, `steering`, `sdd-init` to `sdd-tasks`, `sdd-trace` | None                                              | Markdown and JSON under `.kiro/`                     |
-| `issue-upsert`, `pr-upsert`                                 | `gh` and `git push`, each after your confirmation | None                                                 |
+| Skill                                                                      | Commands                                          | Files                                                |
+| -------------------------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------- |
+| `sdd-impl`, `sdd-validate-impl`                                            | Yes: your test runner and checks, and `git`       | Your source, tests and spec files                    |
+| `debug`, `review`, `verify-completion`                                     | Yes: `git`, your test runner                      | None                                                 |
+| `adr`                                                                      | None                                              | ADR files                                            |
+| `sdd-validate-gap`                                                         | None                                              | `research.md` in the spec folder; may search the web |
+| `sdd-validate-design`                                                      | None                                              | None (read-only)                                     |
+| `udd-*`, `steering`, `sdd-init` to `sdd-tasks`, `sdd-compact`, `sdd-trace` | None                                              | Markdown and JSON under `.kiro/`                     |
+| `issue-upsert`, `pr-upsert`                                                | `gh` and `git push`, each after your confirmation | None                                                 |
 
 ## Allowing what you trust
 

@@ -1,6 +1,6 @@
 ---
 name: sdd-clarify
-description: Use after requirements are approved and before design — surfaces ambiguities as structured questions and records the answers in the requirements' Clarifications section. Mandatory gate before `/uneri-skills:sdd-design` (records "No open questions" when there are none). Local-only. Triggers include "clarify requirements", "曖昧点を潰す", "spec clarify". Output language follows `spec.json`.
+description: Use after requirements are approved and before design — surfaces ambiguities, and contradictions between requirements, as structured questions and records the answers in the requirements' Clarifications section. Mandatory gate before `/uneri-skills:sdd-design` (records "No open questions" when there are none). Local-only. Triggers include "clarify requirements", "曖昧点を潰す", "spec clarify". Output language follows `spec.json`.
 ---
 
 # uneri-skills:sdd-clarify — resolve ambiguities before design
@@ -69,10 +69,32 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
    **first**, as yes/no (or pick-one) questions, and keep to **1–2 questions** — a decision that is
    cheap to change later belongs in design or implementation, not here.
 
+   **Then read the requirements against each other.** The categories above look at one requirement at a time;
+   this pass looks at the interactions:
+
+   | Cross-requirement check  | What to look for                                                                                      |
+   | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+   | Contradictions           | Two requirements that cannot both hold (e.g. "SHALL delete immediately" vs. "SHALL keep for 30 days") |
+   | Conflicting constraints  | A functional requirement whose behavior breaks a non-functional one (latency, availability, audit)    |
+   | Boundary and concurrency | Two actors or requests touching the same thing at once, or a limit's edge, with no stated outcome     |
+
+   Report these as **one list**, not as questions: for each finding quote the requirements involved
+   (by number), say in a line why they conflict, and propose a resolution. Report only a conflict you
+   can quote from the text; never invent one to have something to report.
+
 3. **Ask structured questions** — hard-to-reverse decisions first, then the rest, one topic at a time, waiting for the user's answer before moving
    on. Frame each question clearly: quote the ambiguous fragment, state why it is ambiguous, and ask
    for the concrete value or decision. If there are **no** ambiguities, skip this step and record
    "No open questions." in the next step.
+
+   **Keep the number of questions low** — the most common complaint about clarification is that there are
+   too many. Ask at most **3 questions** in total; an ambiguity beyond that is recorded under the
+   Clarifications entry as an open point for design, not asked. The cross-requirement findings do not
+   count as questions: present the list from step 2 once, and let the user answer it in a single reply
+   (accept the proposed resolutions, or correct them). A finding whose only resolution is to change
+   the wording of a requirement is not settled here — tell the user, and point to
+   `/uneri-skills:sdd-requirements` (its re-open exception); do not edit `requirements.md` beyond the
+   Clarifications section.
 
 4. **Append answers under `## Clarifications`** in `requirements.md`. Do **not** rewrite or delete
    any existing content — append only (on a re-open correcting a prior answer, append a new dated
@@ -117,6 +139,8 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 | Asking all questions at once without waiting for answers       | One topic at a time; record each answer before moving to the next question                                                         |
 | Re-opening without resetting downstream approvals              | Correcting a clarification after design/tasks exist must reset `approvals.design.*`/`approvals.tasks.*`/`ready_for_implementation` |
 | Editing a past clarification answer in place                   | Append-only: record the correction as a new dated entry instead                                                                    |
+| Turning every contradiction into its own question              | List them once with a proposed resolution; the user answers in one reply; total questions stay at 3 or fewer                       |
+| Reporting a "conflict" that the text does not support          | Quote the requirement numbers involved; if you cannot quote both sides, it is not a finding                                        |
 
 ## Note on invocation
 

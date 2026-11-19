@@ -1,6 +1,6 @@
 ---
 name: sdd-trace
-description: Use to audit UC↔spec↔requirement↔task consistency across the project — reports orphan specs, un-specced use cases, dangling task references, and requirement/scenario coverage gaps, and counts progress as implemented use cases out of active ones (deprecated use cases are not counted). Reports only; never writes, never blocks (same philosophy as uneri-skills:udd-validate). Local-only. Triggers include "trace check", "整合を検査", "spec trace". Output language follows `.uneri.json`.
+description: Use to audit UC↔spec↔requirement↔task consistency across the project — reports orphan specs, un-specced use cases, dangling task references, and requirement/scenario coverage gaps, and counts progress as implemented use cases out of active ones (deprecated use cases are not counted). Given a spec name (`/uneri-skills:sdd-trace <feature>`), also reports that spec's status — phase, approvals, task progress, next action. Reports only; never writes, never blocks (same philosophy as uneri-skills:udd-validate). Local-only. Triggers include "trace check", "整合を検査", "spec trace", "spec status", "進捗を見せて". Output language follows `.uneri.json`.
 ---
 
 # uneri-skills:sdd-trace — audit UC↔spec↔requirement↔task consistency
@@ -41,7 +41,10 @@ skill **reads** it and takes **no `--lang`**. Localize prose; keep IDs, field ke
 
 4. **Count progress** (see *Progress count*).
 
-5. **Report** findings grouped by spec (or UC, for un-specced UCs), with a summary count per
+5. **Spec status (only when a feature name is given).** Add the *Spec status* block below for that spec; with no
+   argument, skip it.
+
+6. **Report** findings grouped by spec (or UC, for un-specced UCs), with a summary count per
    check and the progress line. Explicitly state "no issues" when a check is clean.
 
 ## Checks
@@ -101,6 +104,17 @@ Progress is the number of use cases that are done, out of the use cases that are
 - **Progress = implemented / active.** A **deprecated** use case is **left out of both numbers**, even if it has an implemented spec: a goal that is
   no longer pursued must not lower the completion rate. Report how many were left out.
 - Both bands (functional and operational) are counted together.
+
+## Spec status
+
+With a feature name, report where that one spec stands, from `.kiro/specs/<feature>/`:
+
+- **Phase and approvals:** `spec.json` `phase` and each approval (requirements, clarify, design, tasks) and `ready_for_implementation`.
+- **Files:** which of `requirements.md`, `design.md`, `tasks.md` exist; count the requirements and, in `tasks.md`, completed (`- [x]`) against total (`- [ ]`) tasks.
+- **Next action:** the next `/uneri-skills:sdd-*` step the approvals call for; name what blocks it (a missing approval, unanswered clarification).
+- **Boundary context:** from `design.md`, `Boundary Commitments`, `Out of Boundary`, `Allowed Dependencies` and `Revalidation Triggers` when present; name neighbouring specs that may need revalidation if this one changes.
+
+If the spec does not exist, say so and list the directories in `.kiro/specs/`. Still read-only; never blocks.
 
 ## Output format
 

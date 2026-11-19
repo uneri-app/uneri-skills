@@ -1,12 +1,26 @@
 {
   "name": "uneri-skills",
   "description": "The backbone for use-case-driven (UDD) and spec-driven (SDD) development: skills for Claude Code",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "author": {
     "name": "Uneri"
   },
   "homepage": "https://github.com/uneri-app/uneri-skills",
   "repository": "https://github.com/uneri-app/uneri-skills",
   "license": "MIT",
-  "icon": "./.claude-plugin/icon.png"
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://uneri-app.github.io/uneri-skills/",
+  "supportUrl": "https://github.com/uneri-app/uneri-skills/discussions",
+  "privacyPolicyUrl": "https://github.com/uneri-app/uneri-skills/blob/main/plugins/uneri-skills/PRIVACY.md",
+  "keywords": [
+    "use-case-driven",
+    "spec-driven",
+    "sdd",
+    "udd",
+    "requirements",
+    "specification",
+    "tdd",
+    "adr",
+    "workflow"
+  ]
 }

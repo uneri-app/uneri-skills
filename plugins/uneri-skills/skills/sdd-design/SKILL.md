@@ -100,9 +100,9 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
      decision yourself, mark it `settled` with a line saying the user delegated it and the date, and tell the user which
      decisions you made, in your reply and in `design.md`. Point out the ones that are product decisions rather than
      technical ones. The approval is then the user's; the decisions stay visible.
-   - A settled decision that outlives the spec (it binds other specs or later work, its reason would be lost when the
-     spec is revised, or it overturns an earlier ADR) is offered to `/uneri-skills:adr draft spec:{feature}` at this
-     point, so the user sees it while reviewing. Do not write an ADR unasked. Most decisions stay in `design.md`.
+   - A settled decision that passes the *Spec or ADR?* test (in `/uneri-skills:adr`'s authoring reference) is offered to
+     `/uneri-skills:adr draft spec:{feature}` at this point, so the user sees it while reviewing. Do not write an ADR
+     unasked. Most decisions stay in `design.md`.
 
 7. **Ask the user to review** the generated `design.md`. When they confirm the design is correct:
    - Set `approvals.design.approved: true` in `spec.json`.
