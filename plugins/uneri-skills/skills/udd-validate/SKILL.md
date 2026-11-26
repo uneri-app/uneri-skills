@@ -1,6 +1,6 @@
 ---
 name: udd-validate
-description: Use when checking a `.kiro/uneri/use-cases.md` for integrity — a read-only, Markdown-only validation (lint-style, no deps) reporting UC-ID duplicates and gaps, band/section violations, missing or unregistered actors, dangling `realizes`/`aggregates`, stray generated fields and localized field keys. Triggers include "validate use cases", "lint use cases", "use-cases.md をチェック", "UCの整合を確認", or after uneri-skills:udd-add. Reports only (does not edit).
+description: Use when checking a `.kiro/uneri/use-cases.md` for integrity — a read-only, Markdown-only validation (lint-style, no deps) reporting UC-ID duplicates and gaps, band/section violations, missing or unregistered actors, dangling `realizes`/`aggregates`, stray generated fields and localized field keys. Triggers include "validate use cases", "lint use cases", or after uneri-skills:udd-add. Reports only (does not edit).
 ---
 
 # uneri-skills:udd-validate — validate `use-cases.md` (single file)

@@ -1,6 +1,6 @@
 ---
 name: sdd-init
-description: Use when turning one use case (`UC-{CTX}-NNN`) from `.kiro/uneri/use-cases.md` into a spec — reads the UC, creates `.kiro/specs/{NNN-slug}/`, and writes `spec.json` seeded with `traces_uc`. Checks first whether a spec already traces this UC and hands off to the right next step instead of creating a duplicate. First step of the /uneri-skills:sdd-* planning workflow (requirements → clarify → design → tasks). Triggers include "turn UC into a spec", "UCをspec化", "start a spec for UC-…", "spec-init".
+description: Use when turning one use case (`UC-{CTX}-NNN`) from `.kiro/uneri/use-cases.md` into a spec — reads the UC, creates `.kiro/specs/{NNN-slug}/`, and writes `spec.json` seeded with `traces_uc`. Checks first whether a spec already traces this UC and hands off to the right next step instead of creating a duplicate. First step of the /uneri-skills:sdd-* planning workflow (requirements → clarify → design → tasks). Triggers include "turn UC into a spec", "start a spec for UC-…", "spec-init".
 ---
 
 # uneri-skills:sdd-init — seed a spec from one UC

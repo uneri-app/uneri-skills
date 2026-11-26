@@ -1,19 +1,27 @@
 ---
 name: steering
-description: Use when a project needs steering docs (product / tech / structure) for spec-driven development — bootstraps or syncs `.kiro/steering/`. The UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md` under `.kiro/uneri/`) are referenced as domain steering, never duplicated. Triggers include "set up steering", "create product/tech/structure docs", "steering を作る".
+description: Use when a project needs steering docs (product / tech / structure) for spec-driven development — bootstraps `.kiro/steering/` from the codebase, or syncs it when the code has drifted. The UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md` under `.kiro/uneri/`) are referenced as domain steering, never duplicated. Triggers include "set up steering", "create product/tech/structure docs".
 ---
 
-# uneri-skills:steering — scaffold `.kiro/steering/`
+# uneri-skills:steering — bootstrap and sync `.kiro/steering/`
 
 ## Overview
 
-Creates **three convention-correct steering files** under `.kiro/steering/`:
+Maintains **three convention-correct steering files** under `.kiro/steering/`:
 `product.md` (what / why / users), `tech.md` (stack, non-functional constraints), and
 `structure.md` (bounded contexts, directory layout, context map). These files are the
 project-wide steering layer for spec-driven development (SDD) — they complement, never
 duplicate, the UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md`) under
 `.kiro/uneri/`. Local-only (no `gh`, no MCP). **Output is written in the project's configured
 language** (see Language).
+
+Two modes, chosen by what exists under `.kiro/steering/`:
+
+- **Bootstrap** — a core file is missing: read the codebase and **draft** the missing files
+  from what it shows (patterns, not catalogs). Where the code shows nothing, leave the section
+  empty with its guidance comment.
+- **Sync** — all three exist: report drift between the steering and the code, and propose
+  additive updates. Existing content is never overwritten.
 
 When both layers exist the separation is:
 
@@ -25,11 +33,13 @@ When both layers exist the separation is:
 ## When to use
 
 - A new project or new context has no `.kiro/steering/` yet and needs a steering baseline.
-- An existing project is adopting SDD and wants to formalize product/tech/structure context for
-  AI agents.
+- An existing project (brownfield) is adopting SDD and wants product/tech/structure context for
+  AI agents, drawn from the code it already has.
+- The code has moved on and the steering may be stale (Sync).
 - **NOT** for spec content (requirements, acceptance criteria) — that is the `sdd-*` skills.
 - **NOT** for domain modeling (actors, aggregates, events) — that is `/uneri-skills:udd-init`.
-- **NOT** when a steering file already exists → each existing file is skipped (never overwritten).
+- **NOT** to overwrite an existing steering file → each existing file is kept as is; Sync only
+  proposes additions.
 
 ## Language
 
@@ -49,21 +59,43 @@ Split content (fixed tokens stay canonical, variable text localizes):
 
 1. **Resolve the language** (see Language) and **persist it to `.uneri.json`** (create if missing,
    never overwrite if it exists).
-2. **Guard each file.** For each of `product.md`, `tech.md`, and `structure.md` under
-   `.kiro/steering/`, if it already exists **skip it — never overwrite.** Create only the missing
-   files; report created vs. skipped to the user.
-3. **Write the skeletons** (see below) in the resolved language, with **empty** sections and
-   commented guidance. Do not seed real content — the user fills the docs.
-4. **Reconcile context codes.** If `.kiro/uneri/glossary.md` or `.kiro/uneri/structure.md` exists,
+2. **Detect the mode.** Check `product.md`, `tech.md`, `structure.md` under `.kiro/steering/`.
+   Any missing → **Bootstrap** for the missing files only (existing ones are never touched).
+   All present → **Sync**.
+3. **Read the codebase (Bootstrap)**, with Read / Glob / Grep only. Three independent areas, run
+   in parallel when you can:
+   - **Product:** README and docs → purpose, value, core capabilities.
+   - **Tech:** build and config files (`package.json`, `pom.xml`, `build.gradle`, `pyproject.toml`,
+     `go.mod`, `Cargo.toml`, CI config, …) → language, frameworks, data stores, conventions.
+   - **Structure:** the directory tree, naming, module boundaries → how the code is organized.
+     If the project has no code or docs yet, there is nothing to read: write the skeletons below.
+4. **Write the files** (see below) in the resolved language, following the skeletons. Fill a
+   section only with what Step 3 showed, as **patterns that guide decisions** ("feature-first
+   packages", "constructor injection") — not a list of every file or dependency. Mark each
+   inferred section with `<!-- draft: inferred from <source>; confirm -->`. **Leave empty, with
+   its guidance comment:** `## Why`, `## Non-functional constraints`, and anything the code does
+   not show. Never invent users, requirements, or a bounded-context list. Never write keys,
+   passwords or secrets.
+5. **Reconcile context codes.** If `.kiro/uneri/glossary.md` or `.kiro/uneri/structure.md` exists,
    copy any established bounded-context codes (`<CTX>`) into the context-map scaffold in
    `structure.md` so the two layers stay consistent. Do **not** modify the `.kiro/uneri/` files.
-5. Tell the user to add use cases with `/uneri-skills:udd-init` (if not done) and then `/uneri-skills:udd-add`,
-   and to run `/uneri-skills:sdd-init` when they are ready to start a spec.
+6. **Sync (all three exist).** Read the three files and re-read the code as in Step 3. Report:
+   steering that names something the code no longer has (warning), code patterns the steering
+   does not mention (update candidate), and whether a custom file such as `api-standards.md`
+   would help. **Propose** the additions and apply one only when the user agrees, appending
+   rather than replacing. Do not touch the user's own text.
+7. **Summarize** created / kept / proposed per file, and which sections are drafts to confirm
+   (Bootstrap) or drift found (Sync). Ask the user to review the drafts as the project's source of
+   truth. Then point to `/uneri-skills:udd-init` (if not done) and `/uneri-skills:udd-add`, and
+   `/uneri-skills:sdd-init` when they are ready to start a spec.
+
+Golden rule: if new code follows the existing patterns, the steering should not need updating.
 
 ## The files it writes
 
 Canonical (English) reference — localize the headings and prose comments to the resolved language;
-keep canonical tokens (file names, path refs, `inclusion: manual`) verbatim.
+keep canonical tokens (file names, path refs, `inclusion: manual`) verbatim. The comments are guidance
+for the section; replace one with content only when the code shows it (Step 4), otherwise keep it.
 
 ### `product.md`
 
@@ -150,7 +182,10 @@ inclusion: manual
 
 | ❌ Mistake                                                 | ✅ Correct                                                                                        |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| Overwriting an existing steering file                      | **Skip it** — never overwrite; create only missing files, report skipped                          |
+| Overwriting an existing steering file                      | **Never overwrite** — create only missing files; for existing ones, Sync proposes additions       |
+| Leaving every section empty on a project that has code     | **Bootstrap from the code** (Step 3–4); empty only where the code shows nothing                   |
+| Cataloguing every file or dependency                       | Write patterns that guide decisions; the steering should not change when new code follows them    |
+| Inventing Why, users, NFRs or contexts the code can't show | Leave them empty with the guidance comment; mark inferred text `draft: … confirm`                 |
 | Copying domain-model / actor catalog content into steering | Steering references `.kiro/uneri/` docs; it never duplicates them                                 |
 | Hardcoding one language / ignoring the project's language  | Localize headings & prose to `.uneri.json` `lang` (see Language); default `en`                    |
 | Putting use-case content (actor, UC-IDs) in steering files | UC content belongs in `.kiro/uneri/use-cases.md`; steering is project context only                |

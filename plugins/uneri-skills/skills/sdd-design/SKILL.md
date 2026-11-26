@@ -1,6 +1,6 @@
 ---
 name: sdd-design
-description: Use after clarifications to produce the technical design from approved requirements, including explicit Boundary Commitments (in-scope / out-of-boundary). Refuses to run until requirements are approved and clarification is done. Triggers include "generate design", "設計を作る", "spec design".
+description: Use after clarifications to produce the technical design from approved requirements, including explicit Boundary Commitments (in-scope / out-of-boundary). Refuses to run until requirements are approved and clarification is done. Triggers include "generate design", "spec design".
 ---
 
 # uneri-skills:sdd-design — produce technical design from approved requirements

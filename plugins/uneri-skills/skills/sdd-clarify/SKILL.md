@@ -1,6 +1,6 @@
 ---
 name: sdd-clarify
-description: Use after requirements are approved and before design — surfaces ambiguities, and contradictions between requirements, as structured questions and records the answers in the requirements' Clarifications section. Mandatory gate before `/uneri-skills:sdd-design` (records "No open questions" when there are none). Triggers include "clarify requirements", "曖昧点を潰す", "spec clarify".
+description: Use after requirements are approved and before design — surfaces ambiguities, and contradictions between requirements, as structured questions and records the answers in the requirements' Clarifications section. Mandatory gate before `/uneri-skills:sdd-design` (records "No open questions" when there are none). Triggers include "clarify requirements", "spec clarify".
 ---
 
 # uneri-skills:sdd-clarify — resolve ambiguities before design

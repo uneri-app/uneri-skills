@@ -35,6 +35,24 @@ Each use case gets a stable ID (`UC-<CTX>-NNN`) that follows it through its spec
 Skills are namespaced: `/uneri-skills:udd-init`, `/uneri-skills:sdd-init`, and so on. Run `/reload-plugins` after installing.
 To try a local checkout without a marketplace: `claude --plugin-dir /path/to/uneri-skills/plugins/uneri-skills`.
 
+`/plugin install` opens a panel where you choose a scope. **User** scope installs uneri for you, in every project.
+
+To share it with a team, run these in the repository root and commit `.claude/settings.json`:
+
+```bash
+claude plugin marketplace add uneri-app/uneri-skills --scope project
+claude plugin install uneri-skills@uneri-app --scope project
+```
+
+This enables the plugin for your teammates but does not download it.
+Each teammate does this once per clone: start `claude` in the repository, accept the trust prompt, then run:
+
+```bash
+claude plugin install uneri-skills@uneri-app --scope project
+```
+
+Then run `/reload-plugins` in any open session, or restart Claude Code.
+
 ## Quick start
 
 ```text

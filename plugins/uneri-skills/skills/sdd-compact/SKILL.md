@@ -1,6 +1,6 @@
 ---
 name: sdd-compact
-description: Use when a spec's `requirements.md` or `design.md` has accumulated history (dated additions, appended clarification Q&A, retired or "withdrawn" text), has drifted from the implementation, or links to documents outside the spec directory — rewrites both files to describe the spec as it is now, and nothing else, keeping every ID other files refer to. Edits only those two files. Triggers include "compact the spec", "spec を整理", "経緯をまとめる", "実装とずれた spec を直す".
+description: Use when a spec's `requirements.md` or `design.md` has accumulated history (dated additions, appended clarification Q&A, retired or "withdrawn" text), has drifted from the implementation, or links to documents outside the spec directory — rewrites both files to describe the spec as it is now, and nothing else, keeping every ID other files refer to. Edits only those two files. Triggers include "compact the spec".
 argument-hint: <feature-name>
 ---
 

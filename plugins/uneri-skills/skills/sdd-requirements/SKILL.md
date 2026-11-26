@@ -1,6 +1,6 @@
 ---
 name: sdd-requirements
-description: Use after `/uneri-skills:sdd-init` to generate EARS requirements for a spec, auto-seeded from the traced use case's sunny-day and rainy-day scenarios. Refuses to run until the spec exists. Triggers include "generate requirements", "requirements を作る", "spec requirements". Output language follows `.uneri.json` / `spec.json`.
+description: Use after `/uneri-skills:sdd-init` to generate EARS requirements for a spec, auto-seeded from the traced use case's sunny-day and rainy-day scenarios. Refuses to run until the spec exists. Triggers include "generate requirements", "spec requirements". Output language follows `.uneri.json` / `spec.json`.
 ---
 
 # uneri-skills:sdd-requirements — generate EARS requirements from a UC
