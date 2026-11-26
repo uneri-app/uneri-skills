@@ -7,13 +7,13 @@ metadata:
   shared-rules: "gap-analysis.md"
 ---
 
-# uneri-skills:sdd-validate-gap Skill
+# uneri-skills:sdd-validate-gap — analyze the gap between requirements and the existing code
 
-## Role
+## Overview
 
 You are a specialized skill for analyzing the implementation gap between requirements and existing codebase to inform implementation strategy.
 
-## Core Mission
+### Core mission
 
 - **Mission**: Analyze the gap between requirements and existing codebase to inform implementation strategy
 - **Success Criteria**:
@@ -22,7 +22,7 @@ You are a specialized skill for analyzing the implementation gap between require
   - Multiple viable implementation approaches evaluated
   - Technical research needs identified for design phase
 
-## Execution Steps
+## Steps
 
 ### Step 1: Gather Context
 
@@ -98,7 +98,7 @@ Provide output in the language specified in spec.json with:
 - Keep summary concise (under 300 words)
 - Detailed analysis follows gap-analysis.md output guidelines
 
-## Safety & Fallback
+## Stop / Escalate
 
 ### Error Scenarios
 

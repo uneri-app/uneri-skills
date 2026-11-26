@@ -1,6 +1,6 @@
 ---
 name: pr-upsert
-description: "Use to create-or-update the GitHub Pull Request for the current branch, always with a label saying what it is for: the `UC-{CTX}-NNN` label for a use case's spec (`{feature-name}`), or `bug` / `enabler` / `chore` for a PR no UC owns. Requires `gh` and a GitHub remote; every write waits for the user's confirmation. Triggers include \"open a PR for this feature\", \"PRを作って/更新して\", \"このspecのPRを作って\", \"バグ修正のPRを作って\", \"PR upsert\". NOT for merging, requesting review, or linking Issues (that is `uneri-skills:issue-upsert`). Output language follows `.uneri.json`."
+description: "Use to create-or-update the GitHub Pull Request for the current branch, always with a label saying what it is for: the `UC-{CTX}-NNN` label for a use case's spec (`{feature-name}`), or `bug` / `enabler` / `chore` for a PR no UC owns. Requires `gh` and a GitHub remote; every write waits for the user's confirmation. Triggers include \"open a PR for this feature\", \"PRを作って/更新して\", \"このspecのPRを作って\", \"バグ修正のPRを作って\", \"PR upsert\". NOT for merging, requesting review, or linking Issues (that is `uneri-skills:issue-upsert`)."
 argument-hint: <feature-name> | <bug|enabler|chore> ["<summary>"]
 ---
 
@@ -243,8 +243,3 @@ Decide the path before anything else — from the first argument:
 | Prefixing the PR title with `UC-<CTX>-NNN:`                 | The label and the Traceability section carry the UC-ID; the title follows the project's own convention (step 6)  |
 | Reporting in the wrong language                             | Follow `.uneri.json` `lang`; localize prose, keep IDs/keys verbatim                                              |
 | Running without `gh` / outside a GitHub remote              | Stop at precondition 1 (step 1) before any read/write                                                            |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:pr-upsert <feature-name>` or `/uneri-skills:pr-upsert <bug|enabler|chore> ["<summary>"]` — the `uneri-skills:` namespace is supplied by the plugin.
-Language comes from `.uneri.json`; this skill takes no `--lang`.

@@ -5,9 +5,9 @@ allowed-tools: Read, Grep, Glob
 argument-hint: <feature-name> [task-numbers]
 ---
 
-# uneri-skills:sdd-validate-impl Skill
+# uneri-skills:sdd-validate-impl — validate the finished implementation against its spec
 
-## Role
+## Overview
 
 Individual tasks have already been reviewed by the per-task reviewer during implementation. Your job is to catch problems that only become visible when looking across all tasks together.
 
@@ -18,7 +18,7 @@ Boundary terminology continuity:
 - tasks constrain execution with `_Boundary:_`
 - feature validation checks for cross-task `Boundary Violations`
 
-## Core Mission
+### Core mission
 
 - **Success Criteria**:
   - All tasks marked `[x]` in tasks.md
@@ -38,7 +38,7 @@ Per-task checks are the reviewer's responsibility during `/uneri-skills:sdd-impl
 
 This skill's main question is: when the completed tasks are viewed together, do they still respect the designed boundary seams and dependency direction?
 
-## Execution Steps
+## Steps
 
 ### Step 1: Detect Validation Target
 
@@ -231,7 +231,7 @@ leaves `phase` at `implemented` (idempotent — do not error on it already being
 - **Strict Final Gate**: Return `GO` only when all integration checks passed; return `NO-GO` for concrete failures and `MANUAL_VERIFY_REQUIRED` when mandatory validation could not be completed
 - **Boundary integrity over convenience**: Do not return `GO` if the feature only works by smearing responsibilities across boundaries, even when tests pass
 
-## Safety & Fallback
+## Stop / Escalate
 
 ### Error Scenarios
 

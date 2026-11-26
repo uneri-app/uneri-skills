@@ -1,6 +1,6 @@
 ---
 name: sdd-design
-description: Use after clarifications to produce the technical design from approved requirements, including explicit Boundary Commitments (in-scope / out-of-boundary). Refuses to run until requirements are approved and clarification is done. Local-only. Triggers include "generate design", "設計を作る", "spec design". Output language follows `spec.json`.
+description: Use after clarifications to produce the technical design from approved requirements, including explicit Boundary Commitments (in-scope / out-of-boundary). Refuses to run until requirements are approved and clarification is done. Triggers include "generate design", "設計を作る", "spec design".
 ---
 
 # uneri-skills:sdd-design — produce technical design from approved requirements
@@ -246,8 +246,3 @@ Reference requirement numbers (e.g. 1.2, 1.3) for traceability.>
 | Leaving the open decisions only in the chat reply                | Write them in `## Decisions` of `design.md` with their status; a conversation is not a record                                                                |
 | Setting `approvals.design.approved` without user review          | Write the file and set `generated`; wait for explicit user confirmation before setting `approved`                                                            |
 | Pointing to the wrong next step                                  | After approval, point to `/uneri-skills:sdd-tasks` (optionally `/uneri-skills:sdd-validate-design` first)                                                    |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-design` — the `uneri-skills:` namespace is supplied by the plugin. Language is read from `spec.json` (set by `/uneri-skills:sdd-init`); this
-skill takes no `--lang`.

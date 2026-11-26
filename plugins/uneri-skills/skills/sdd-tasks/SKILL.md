@@ -1,6 +1,6 @@
 ---
 name: sdd-tasks
-description: Use after design approval to break the design into a checkbox task list grouped by use case, each task tagged with `_UC:` and `_Requirements:`. Refuses to run until the design is approved. Local-only. Triggers include "generate tasks", "タスク分解", "spec tasks". Output language follows `spec.json`.
+description: Use after design approval to break the design into a checkbox task list grouped by use case, each task tagged with `_UC:` and `_Requirements:`. Refuses to run until the design is approved. Triggers include "generate tasks", "タスク分解", "spec tasks".
 ---
 
 # uneri-skills:sdd-tasks — break approved design into a traceable task list
@@ -201,8 +201,3 @@ still-unchecked tasks below it and split the task list).
 | Telling the user implementation is out of scope / to hand tasks to cc-sdd                                              | Implementation is **in scope** via `/uneri-skills:sdd-impl`; point the user there (then `/uneri-skills:sdd-validate-impl`)                                   |
 | Pointing to the wrong next step                                                                                        | After approval, tell the user to run `/uneri-skills:sdd-impl` → `/uneri-skills:sdd-validate-impl` → `/uneri-skills:sdd-trace`                                |
 | Starting `/uneri-skills:sdd-impl` when the user only asked for the tasks                                               | Continue into it only if they asked to carry the spec through to implementation; otherwise suggest it as the next step                                       |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-tasks` — the `uneri-skills:` namespace is supplied by the plugin. Language is read from `spec.json` (set by `/uneri-skills:sdd-init`); this
-skill takes no `--lang`.

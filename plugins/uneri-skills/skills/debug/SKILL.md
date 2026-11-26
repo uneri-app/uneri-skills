@@ -11,7 +11,7 @@ argument-hint: <failure-summary>
 
 This skill is for fresh-context root cause investigation. It combines local evidence, runtime/config inspection, and external documentation or issue research when available. It is not a patch generator for guess-first debugging.
 
-## When to Use
+## When to use
 
 - Implementer reports `BLOCKED`
 - Reviewer rejection repeats after remediation

@@ -1,6 +1,6 @@
 ---
 name: udd-add
-description: Use when adding a new use case to an existing `.kiro/uneri/use-cases.md` — appends one `UC-{CTX}-NNN` entry with auto-numbering, a validated `actor`, and optional `realizes`/`aggregates`. Triggers include "add a use case", "新しいユースケースを追加", "UCを追記", or after uneri-skills:udd-init when the list needs entries. NOT for creating the file (use uneri-skills:udd-init) or for non-functional requirements (those go to steering/spec). Output language follows `.uneri.json`.
+description: Use when adding a new use case to an existing `.kiro/uneri/use-cases.md` — appends one `UC-{CTX}-NNN` entry with auto-numbering, a validated `actor`, and optional `realizes`/`aggregates`. Triggers include "add a use case", "新しいユースケースを追加", "UCを追記", or after uneri-skills:udd-init when the list needs entries. NOT for creating the file (use uneri-skills:udd-init) or for non-functional requirements (those go to steering/spec).
 ---
 
 # uneri-skills:udd-add — append one use case
@@ -84,7 +84,3 @@ Canonical reference — localize the UC name/heading prose to the resolved langu
 | Writing `Status`/`Spec`/`Issue`                       | Derived from specs and tasks; never hand-written here                               |
 | Creating the file if missing                          | Stop; run `uneri-skills:udd-init` first                                             |
 | Hardcoding one language                               | Follow `.uneri.json` `lang` (see Language)                                          |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:udd-add` — the `uneri-skills:` namespace is supplied by the plugin. Language comes from `.uneri.json` (set by `/uneri-skills:udd-init`); this skill takes no `--lang`.

@@ -6,7 +6,7 @@ description: Conventions for authoring uneri use cases — the UC-ID system, not
 # uneri-skills:udd-authoring — UC conventions (knowledge skill)
 
 Background knowledge for writing/editing uneri use cases. **This is not a command** — it auto-activates to keep any
-UC edit (via a skill *or* by hand) consistent. It carries the portable conventions; the `uc-*` commands rely on it.
+UC edit (via a skill *or* by hand) consistent. It carries the portable conventions; the `udd-*` commands rely on it.
 Upstream domain lives in `.kiro/uneri/domain-model.md` / `actors.md` / `glossary.md`.
 
 ## What a use case is (granularity)

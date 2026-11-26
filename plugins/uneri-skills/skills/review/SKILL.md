@@ -18,7 +18,7 @@ Boundary terminology continuity:
 - tasks constrain execution with `_Boundary:_`
 - review rejects concrete `Boundary Violations`
 
-## When to Use
+## When to use
 
 - After an implementer reports `READY_FOR_REVIEW`
 - After remediation for a rejected review

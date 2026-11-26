@@ -16,4 +16,4 @@ Part of: Cross-cutting. See [all skills](./).
 
 This is the skill's own description, which Claude reads to decide when to use it:
 
-> Verify completion and success claims with fresh evidence. Use before claiming a task is complete, a fix works, tests pass, or a feature is ready for GO.
+> Verify completion and success claims with fresh evidence. Use before claiming a task is complete, a fix works, tests pass, a failure is unrelated or pre-existing, or a feature is ready for GO, and when writing the report that states them.

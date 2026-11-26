@@ -1,6 +1,6 @@
 ---
 name: sdd-clarify
-description: Use after requirements are approved and before design — surfaces ambiguities, and contradictions between requirements, as structured questions and records the answers in the requirements' Clarifications section. Mandatory gate before `/uneri-skills:sdd-design` (records "No open questions" when there are none). Local-only. Triggers include "clarify requirements", "曖昧点を潰す", "spec clarify". Output language follows `spec.json`.
+description: Use after requirements are approved and before design — surfaces ambiguities, and contradictions between requirements, as structured questions and records the answers in the requirements' Clarifications section. Mandatory gate before `/uneri-skills:sdd-design` (records "No open questions" when there are none). Triggers include "clarify requirements", "曖昧点を潰す", "spec clarify".
 ---
 
 # uneri-skills:sdd-clarify — resolve ambiguities before design
@@ -55,13 +55,17 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 2. **Read `requirements.md`** from `.kiro/specs/<slug>/requirements.md`. Scan every requirement for
    ambiguities in these categories:
 
-   | Category                   | What to look for                                                                      |
-   | -------------------------- | ------------------------------------------------------------------------------------- |
-   | Undefined terms            | Domain nouns used without a glossary entry or inline definition                       |
-   | Missing limits             | Quantities, timeouts, or thresholds left open (e.g. "many", "quickly")                |
-   | Unclear actors             | An actor role that is not defined in `actors.md` or not clear from context            |
-   | Unspecified error handling | A failure scenario whose resolution is not described (e.g. "the system SHALL handle") |
-   | Hard-to-reverse decisions  | Choices that force rework if changed after implementation (see below)                 |
+   | Category                        | What to look for                                                                                                 |
+   | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+   | Undefined terms                 | Domain nouns used without a glossary entry or inline definition                                                  |
+   | Missing limits                  | Quantities, timeouts, or thresholds left open (e.g. "many", "quickly")                                           |
+   | Unspecified external obligation | A rule cited by name ("comply with …", "follow the guideline") with no stated duty, prohibition, record or check |
+   | Unclear actors                  | An actor role that is not defined in `actors.md` or not clear from context                                       |
+   | Unspecified error handling      | A failure scenario whose resolution is not described (e.g. "the system SHALL handle")                            |
+   | Hard-to-reverse decisions       | Choices that force rework if changed after implementation (see below)                                            |
+
+   Also take each `<!-- open for sdd-clarify: … -->` comment that `/uneri-skills:sdd-requirements` left under
+   `## Clarifications` as a candidate ambiguity; it counts toward the 3-question limit like any other.
 
    **Hard-to-reverse decisions** — persisted data shape or identifiers, public API/URL contracts,
    external-system identifiers, tenancy/ownership boundaries, irreversible state transitions. These
@@ -99,7 +103,8 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 4. **Append answers under `## Clarifications`** in `requirements.md`. Do **not** rewrite or delete
    any existing content — append only (on a re-open correcting a prior answer, append a new dated
    entry noting the correction rather than editing the old one — the append-only trail stays intact).
-   Use this format:
+   Once an `open for sdd-clarify` point is answered, or recorded as an open point for design, its comment
+   stays in place; only append. Use this format:
 
    ```markdown
    ## Clarifications
@@ -141,8 +146,3 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 | Editing a past clarification answer in place                   | Append-only: record the correction as a new dated entry instead                                                                    |
 | Turning every contradiction into its own question              | List them once with a proposed resolution; the user answers in one reply; total questions stay at 3 or fewer                       |
 | Reporting a "conflict" that the text does not support          | Quote the requirement numbers involved; if you cannot quote both sides, it is not a finding                                        |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-clarify` — the `uneri-skills:` namespace is supplied by the plugin. Language is read from `spec.json` (set by `/uneri-skills:sdd-init`); this
-skill takes no `--lang`.

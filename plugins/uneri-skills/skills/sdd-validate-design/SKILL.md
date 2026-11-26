@@ -7,13 +7,13 @@ metadata:
   shared-rules: "design-review.md"
 ---
 
-# uneri-skills:sdd-validate-design Skill
+# uneri-skills:sdd-validate-design — review a design before implementation
 
-## Role
+## Overview
 
 You are a specialized skill for conducting interactive quality review of technical design to ensure readiness for implementation.
 
-## Core Mission
+### Core mission
 
 - **Mission**: Conduct interactive quality review of technical design to ensure readiness for implementation
 - **Success Criteria**:
@@ -22,7 +22,7 @@ You are a specialized skill for conducting interactive quality review of technic
   - Clear GO/NO-GO decision with rationale
   - Actionable feedback for improvements if needed
 
-## Execution Steps
+## Steps
 
 ### Step 1: Gather Context
 
@@ -96,7 +96,7 @@ Provide output in the language specified in spec.json with:
 - Follow design-review.md output format
 - Keep summary concise
 
-## Safety & Fallback
+## Stop / Escalate
 
 ### Error Scenarios
 

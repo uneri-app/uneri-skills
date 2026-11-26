@@ -1,6 +1,6 @@
 ---
 name: issue-upsert
-description: "Use to create-or-update one GitHub Issue with the label that says what it is for: the Issue for one use case (`UC-{CTX}-NNN`, UC label; update the placeholder's body to a readable summary after `/uneri-skills:sdd-design`, or create it via `gh` when none exists) or a non-UC Issue (`bug` / `enabler` / `chore`, kind label). Requires `gh` and a GitHub remote. Triggers include \"update the issue for UC-…\", \"UCのIssue本文を読める形に更新\", \"UCをIssue化/起票\", \"file a bug\", \"バグを起票\", \"enablerのIssueを作って\". NOT for creating specs (that is uneri-skills:sdd-init). Output language follows `.uneri.json`."
+description: "Use to create-or-update one GitHub Issue with the label that says what it is for: the Issue for one use case (`UC-{CTX}-NNN`, UC label; fills the placeholder's body after `/uneri-skills:sdd-design`, or creates it via `gh` when none exists) or a non-UC Issue (`bug` / `enabler` / `chore`, kind label). Requires `gh` and a GitHub remote. Triggers include \"update the issue for UC-…\", \"UCのIssue本文を読める形に更新\", \"UCをIssue化/起票\", \"file a bug\", \"バグを起票\", \"enablerのIssueを作って\". NOT for creating specs (that is uneri-skills:sdd-init)."
 ---
 
 # uneri-skills:issue-upsert — one GitHub Issue, labelled by what it is for (UC / bug / enabler / chore)
@@ -308,8 +308,3 @@ are shared.
 | Writing the Issue number back into use-cases.md               | Status/Spec/Issue are never written there — they are derived from specs and tasks                                                                                                                                                |
 | Setting milestone / syncing human assignees                   | Not this skill's job. Assigning an **AI coding agent** at the user's explicit request is fine (a trigger, not sync) — do it after the write, e.g. `gh issue edit <n> --add-assignee …`                                           |
 | Writing anywhere but GitHub (API/MCP)                         | Never — this skill's only write path is `gh`                                                                                                                                                                                     |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:issue-upsert` — the `uneri-skills:` namespace is supplied by the plugin. Language
-comes from `.uneri.json`; this skill takes no `--lang`.

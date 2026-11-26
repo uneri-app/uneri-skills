@@ -1,6 +1,6 @@
 ---
 name: sdd-requirements
-description: Use after `/uneri-skills:sdd-init` to generate EARS requirements for a spec, auto-seeded from the traced use case's sunny-day and rainy-day scenarios. Refuses to run until the spec exists. Local-only. Triggers include "generate requirements", "requirements を作る", "spec requirements". Output language follows `.uneri.json` / `spec.json`.
+description: Use after `/uneri-skills:sdd-init` to generate EARS requirements for a spec, auto-seeded from the traced use case's sunny-day and rainy-day scenarios. Refuses to run until the spec exists. Triggers include "generate requirements", "requirements を作る", "spec requirements". Output language follows `.uneri.json` / `spec.json`.
 ---
 
 # uneri-skills:sdd-requirements — generate EARS requirements from a UC
@@ -71,12 +71,42 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
    - **Rainy-day requirements** covering every applicable category below (include all that apply;
      skip only with an explicit note if a category genuinely cannot apply):
 
-     | Category                   | Trigger to look for                                                           |
-     | -------------------------- | ----------------------------------------------------------------------------- |
-     | Validation failure         | Any input the UC accepts (always applicable)                                  |
-     | Authorization denied       | Any actor access gate or permission check in the UC                           |
-     | Conflict / concurrent edit | Any state mutation on an aggregate (always applicable if `aggregates` is set) |
-     | External-system failure    | Any `realizes: [EVT-…]` or downstream integration the UC touches              |
+     | Category                   | Trigger to look for                                                                             |
+     | -------------------------- | ----------------------------------------------------------------------------------------------- |
+     | Validation failure         | Any input the UC accepts (always applicable)                                                    |
+     | Authorization denied       | Any actor access gate or permission check in the UC                                             |
+     | Conflict / concurrent edit | Any state mutation on an aggregate (always applicable if `aggregates` is set)                   |
+     | External-system failure    | Any `realizes: [EVT-…]` or downstream integration the UC touches                                |
+     | AI-output uncertainty      | The UC uses a component whose output varies for the same input (an LLM, a classifier, a ranker) |
+
+   **AI-output uncertainty** applies only when the UC uses a component whose output varies for the same
+   input. Write criteria for: what the system does when the component is not confident (hand the decision to
+   a person, or decline to answer); never answering from a guess when no source supports the answer; how an
+   input outside the expected range is handled; what is recorded about each decision; and which changes
+   (model, prompt, data) require the behaviour to be evaluated again. If the UC has no such component, leave
+   the category out and say so in one line.
+
+   **External obligations.** "Comply with `<law or guideline>`" is not an acceptance criterion, because it
+   cannot be checked. Turn it into criteria that name the duty, the prohibition, the condition, the record to
+   keep, or the check, each tied to something the system does. If the clause is not known from the UC,
+   steering or the user, do not guess one: keep the requirement's other criteria and leave out only the unknown
+   clause (never drop the whole requirement; Step 4 needs criteria for every requirement). Record each such gap
+   as an HTML comment line inside the `## Clarifications` section, in the form
+   `<!-- open for sdd-clarify: <the quoted fragment or topic> — <what is missing> -->`, and mention it in your
+   reply too, so `/uneri-skills:sdd-clarify` can pick it up.
+
+   **Check every criterion before writing the file.** Each one must be:
+
+   - **Measurable** — it states something that can be observed or checked. Replace "fast", "easy to use",
+     "appropriately", "as needed" with an observable outcome. If the UC gives no value, do not invent a
+     number: leave the value out (for example, state the observable outcome, "the result list is shown", and
+     record the time limit as an open point). Record each such gap as an HTML comment line inside the
+     `## Clarifications` section, in the form
+     `<!-- open for sdd-clarify: <the quoted fragment or topic> — <what is missing> -->`, and mention it in your
+     reply too, so `/uneri-skills:sdd-clarify` can pick it up.
+   - **Single** — one matter per criterion; split "does A and B".
+   - **Unambiguous** — the subject is named and there is one reading.
+   - **Consistent** — it does not contradict another criterion.
 
 4. **Structure as Kiro requirements** — use the cc-sdd/Kiro **canonical shape** the ecosystem parser
    expects (requirement heading `#{2,3}\s+Requirement\s+N[:：]?` + a
@@ -88,8 +118,8 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
    derived trace ID is `AC-<CTX>-<UC number>.<N>.<M>`. **Do not** use `## N. <Capability>` capability
    headings or inline `N.M` lines — the parser will not recognize them.
 
-5. **Append `## Clarifications`** — an empty section with a placeholder comment, populated later
-   by `/uneri-skills:sdd-clarify`.
+5. **Append `## Clarifications`** — a section with a placeholder comment (plus any `open for sdd-clarify`
+   comment lines from Step 3) and no Q/A entries, populated later by `/uneri-skills:sdd-clarify`.
 
 6. **Write `requirements.md`** at `.kiro/specs/<slug>/requirements.md` using the skeleton below.
 
@@ -135,25 +165,24 @@ text):
 ## Clarifications
 
 <!-- filled by /uneri-skills:sdd-clarify -->
+<!-- open for sdd-clarify: <quoted fragment or topic> — <what is missing> -->  (only when a gap was left out)
 ```
 
 ## Common mistakes (do NOT repeat)
 
-| ❌ Mistake                                                             | ✅ Correct                                                                                                                                                                                                       |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Running before `/uneri-skills:sdd-init`                                | Hard-refuse; gate checks `spec.json` exists with `phase >= initialized` before any work                                                                                                                          |
-| Skipping rainy-day scenarios                                           | Generate **all applicable** rainy-day categories (validation, auth, conflict, external) — not just happy path                                                                                                    |
-| Using `## N. <Capability>` headings or inline `N.M` EARS lines         | Kiro canonical shape only: `### Requirement N: title` + `**Objective:**` + `#### Acceptance Criteria` numbered list — the parser matches the literal `Requirement N` and counts `#### Acceptance Criteria` items |
-| Alphabetic requirement IDs (`Requirement A`)                           | Numeric ID required (`Requirement 1`, `Requirement 2`, …)                                                                                                                                                        |
-| Putting EARS clauses outside `#### Acceptance Criteria`                | AC must be a numbered list (`1.`, `2.`, …) under `#### Acceptance Criteria`; that is what the parser counts                                                                                                      |
-| Omitting `## Clarifications`                                           | Always append the empty section — `/uneri-skills:sdd-clarify` populates it next                                                                                                                                  |
-| Forgetting to update `spec.json`                                       | Set `phase`, `approvals.requirements.generated`, and `updated_at` after writing the file                                                                                                                         |
-| Translating EARS keywords (`When`/`If … then`/`While`/`Where`/`shall`) | These are canonical EARS keywords — keep them verbatim in every language                                                                                                                                         |
-| Setting `approvals.requirements.approved` without user review          | Write the file and update `generated`; wait for explicit user confirmation before setting `approved`                                                                                                             |
-| Re-opening without resetting downstream approvals                      | Requirements are the most upstream artifact — a re-open must reset `approvals.design.*`/`approvals.tasks.*`/`ready_for_implementation`, not just `requirements`                                                  |
-| Treating a clarification-only fix as a requirements re-open            | If only a clarification answer was wrong, use `/uneri-skills:sdd-clarify`'s own re-open instead — don't rewrite `requirements.md` for that                                                                       |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-requirements` — the `uneri-skills:` namespace is supplied by the plugin. Language is read from `spec.json` (set by `/uneri-skills:sdd-init`); this
-skill takes no `--lang`.
+| ❌ Mistake                                                                 | ✅ Correct                                                                                                                                                                                                       |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Running before `/uneri-skills:sdd-init`                                    | Hard-refuse; gate checks `spec.json` exists with `phase >= initialized` before any work                                                                                                                          |
+| Skipping rainy-day scenarios                                               | Generate **all applicable** rainy-day categories (validation, auth, conflict, external, and AI-output uncertainty where the UC has such a component) — not just happy path                                       |
+| Using `## N. <Capability>` headings or inline `N.M` EARS lines             | Kiro canonical shape only: `### Requirement N: title` + `**Objective:**` + `#### Acceptance Criteria` numbered list — the parser matches the literal `Requirement N` and counts `#### Acceptance Criteria` items |
+| Alphabetic requirement IDs (`Requirement A`)                               | Numeric ID required (`Requirement 1`, `Requirement 2`, …)                                                                                                                                                        |
+| Putting EARS clauses outside `#### Acceptance Criteria`                    | AC must be a numbered list (`1.`, `2.`, …) under `#### Acceptance Criteria`; that is what the parser counts                                                                                                      |
+| Omitting `## Clarifications`                                               | Always append the empty section — `/uneri-skills:sdd-clarify` populates it next                                                                                                                                  |
+| Forgetting to update `spec.json`                                           | Set `phase`, `approvals.requirements.generated`, and `updated_at` after writing the file                                                                                                                         |
+| Translating EARS keywords (`When`/`If … then`/`While`/`Where`/`shall`)     | These are canonical EARS keywords — keep them verbatim in every language                                                                                                                                         |
+| Setting `approvals.requirements.approved` without user review              | Write the file and update `generated`; wait for explicit user confirmation before setting `approved`                                                                                                             |
+| Re-opening without resetting downstream approvals                          | Requirements are the most upstream artifact — a re-open must reset `approvals.design.*`/`approvals.tasks.*`/`ready_for_implementation`, not just `requirements`                                                  |
+| Treating a clarification-only fix as a requirements re-open                | If only a clarification answer was wrong, use `/uneri-skills:sdd-clarify`'s own re-open instead — don't rewrite `requirements.md` for that                                                                       |
+| Unmeasured wording in a criterion ("fast", "easy to use", "appropriately") | An observable outcome with a value taken from the UC; if the UC gives none, leave the value out and record it as an `open for sdd-clarify` comment — never invent a number                                       |
+| "Comply with `<law or guideline>`" as a criterion                          | One criterion per duty, prohibition, condition, record or check; if the clause is unknown, leave out only that clause and record the gap as an `open for sdd-clarify` comment instead of guessing                |
+| AI-output criteria on a UC with no varying-output component                | Add them only when the UC uses such a component; otherwise one line saying the category does not apply                                                                                                           |

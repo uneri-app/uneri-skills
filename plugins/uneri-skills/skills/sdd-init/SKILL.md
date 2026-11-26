@@ -1,6 +1,6 @@
 ---
 name: sdd-init
-description: Use when turning one use case (`UC-{CTX}-NNN`) from `.kiro/uneri/use-cases.md` into a spec — reads the UC, creates `.kiro/specs/{NNN-slug}/`, and writes `spec.json` seeded with `traces_uc`. Checks first whether a spec already traces this UC and hands off to the right next step instead of creating a duplicate. First step of the /uneri-skills:sdd-* planning workflow (requirements → clarify → design → tasks). Local-only (no `gh`, no MCP). Triggers include "turn UC into a spec", "UCをspec化", "start a spec for UC-…", "spec-init". Output language follows `.uneri.json`.
+description: Use when turning one use case (`UC-{CTX}-NNN`) from `.kiro/uneri/use-cases.md` into a spec — reads the UC, creates `.kiro/specs/{NNN-slug}/`, and writes `spec.json` seeded with `traces_uc`. Checks first whether a spec already traces this UC and hands off to the right next step instead of creating a duplicate. First step of the /uneri-skills:sdd-* planning workflow (requirements → clarify → design → tasks). Triggers include "turn UC into a spec", "UCをspec化", "start a spec for UC-…", "spec-init".
 ---
 
 # uneri-skills:sdd-init — seed a spec from one UC
@@ -23,28 +23,15 @@ the default assumption is that revisiting a UC means resuming its existing spec,
 - **NOT** when a spec already traces this UC and the UC's goal/`scope` hasn't changed — resume the
   existing spec instead, even if acceptance criteria were refined or corrected (this skill detects
   that case itself and hands off; see Step 0).
-- **NOT** for generating requirements, design, or tasks — those are the subsequent `spec-*`
+- **NOT** for generating requirements, design, or tasks — those are the subsequent `sdd-*`
   skills.
 - **NOT** for creating GitHub Issues — that is `uneri-skills:issue-upsert` (uses `gh`).
 
-## Language (uneri config)
+## Language
 
-The resolved language is written to `spec.json.language`. Language is taken from
-**`.uneri.json`** (`lang`) — which **`/uneri-skills:udd-init` sets once** (via its `--lang`).
-uneri-skills:sdd-init **reads** it and takes no `--lang`. Resolution when reading:
+The resolved language is written to `spec.json.language`. Read it from `.uneri.json` → `lang` (set once by `/uneri-skills:udd-init`; this skill takes no `--lang`), else from the language of existing specs' `spec.json`, else default **`en`**.
 
-1. `.uneri.json` → `lang` (uneri's own repo-root config; **cc-sdd does not write this file** — see below);
-2. else the language of existing specs' `spec.json` → `language`;
-3. else default **`en`**.
-
-**`.uneri.json` is created by `/uneri-skills:udd-init`** and carries the project-wide language for all
-`/uneri-skills:*` skills. If uneri-skills:sdd-init runs **standalone** (no uneri-skills:udd-init) and `.uneri.json`
-is **missing**, create it as a fallback with the resolved value
-(`{ "agent": "claude-code-skills", "lang": "<resolved>" }`); if it **exists**, read it and **do
-not overwrite** it.
-
-(cc-sdd itself has no `.cc-sdd.json`; it only takes `--lang` per run and persists language in each
-spec's `spec.json`. `.uneri.json` is uneri's own layer — do not name it `.cc-sdd.json`.)
+If this skill runs **standalone** and `.uneri.json` is **missing**, create it as a fallback: `{ "agent": "claude-code-skills", "lang": "<resolved>" }`. If it **exists**, read it and **do not overwrite** it.
 
 ## Steps
 
@@ -146,9 +133,3 @@ Kiro/cc-sdd ecosystem; `traces_uc` is additive and ignored by tools that do not 
 | Hardcoding one language / ignoring the project's language    | Resolve from `.uneri.json` `lang` (see Language); default `en`; write to `spec.json.language`                                                         |
 | Delegating to cc-sdd / invoking `/kiro-spec-init`            | uneri-skills:sdd-init writes `spec.json` directly — no delegation to cc-sdd in this workflow                                                          |
 | Using `gh` / MCP                                             | uneri-skills:sdd-init is local-only; `gh` belongs to `uneri-skills:issue-upsert`                                                                      |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-init` — the `uneri-skills:` namespace is supplied by the plugin. Language comes from
-`.uneri.json` (set by `/uneri-skills:udd-init`); this skill takes no `--lang` (standalone: falls back to
-`spec.json`/`en` and creates `.uneri.json`).

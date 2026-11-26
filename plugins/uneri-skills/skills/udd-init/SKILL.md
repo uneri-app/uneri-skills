@@ -1,6 +1,6 @@
 ---
 name: udd-init
-description: Use as the entry point to start uneri's use-case-driven development in a repo — a guided bootstrap that sets `.uneri.json` (language via `--lang`), runs a light EventStorming to produce `domain-model.md`/`actors.md`/`glossary.md`, scaffolds `use-cases.md` (skeleton + UC-ID conventions), and routes into uneri-skills:udd-add. Triggers include "start uneri", "kick off UC-driven development", "start tracking use cases", "create/set up use-cases.md", "uneri を始める", "ドメインから立ち上げる". Local-only (no cc-sdd, gh, or MCP). Takes `[CTX] [--lang {code}]`.
+description: Use as the entry point to start uneri's use-case-driven development in a repo — a guided bootstrap that sets `.uneri.json` (language via `--lang`), runs a light EventStorming to produce `domain-model.md`/`actors.md`/`glossary.md`, scaffolds `use-cases.md` (skeleton + UC-ID conventions), and routes into uneri-skills:udd-add. Triggers include "start uneri", "kick off UC-driven development", "start tracking use cases", "create/set up use-cases.md", "uneri を始める", "ドメインから立ち上げる". Takes `[CTX] [--lang {code}]`.
 ---
 
 # uneri-skills:udd-init — entry point: language, domain discovery & `use-cases.md`
@@ -10,7 +10,7 @@ description: Use as the entry point to start uneri's use-case-driven development
 The **front door** for uneri. A guided orchestrator that takes a repo from nothing to a first use case:
 sets the project language (`.uneri.json`), discovers the domain (light EventStorming → `domain-model.md` /
 `actors.md` / `glossary.md`), scaffolds the **empty, convention-correct** `use-cases.md` (skeleton + UC-ID
-conventions), and hands into the `uneri-skills:udd-add` ⇄ `uneri-skills:udd-validate` loop. **Local-only** — no cc-sdd, `gh`, or MCP.
+conventions), and hands into the `uneri-skills:udd-add` ⇄ `uneri-skills:udd-validate` loop. **Local-only** — no `gh` or MCP.
 **Idempotent:** skips/augments what already exists, never overwrites. **Output is written in the project's configured
 language** (see Language).
 
@@ -43,12 +43,12 @@ from-scratch or single-context start, this skill can go first and derive `<CTX>`
 
 ## Language (uneri config) — set here, once
 
-**uneri-skills:udd-init is the single place language is chosen.** Resolve: `--lang <code>` (one of cc-sdd's 13:
+**uneri-skills:udd-init is the single place language is chosen.** Resolve: `--lang <code>` (one of the 13 supported codes:
 `ja, en, zh-TW, zh, es, pt, de, fr, ru, it, ko, ar, el`) → existing `.uneri.json` `lang` → existing specs'
 `spec.json` `language` → default `en`. Then **create `.uneri.json`** if missing
 (`{ "agent": "claude-code-skills", "lang": "<resolved>" }`); if it exists, read it and **do not overwrite**
 existing keys (Step 2 additionally records a `layout` field — see below).
-Downstream `uc-*` / `steering` / `spec-*` skills inherit this and take no `--lang`. All generated docs are written
+Downstream `udd-*` / `steering` / `sdd-*` skills inherit this and take no `--lang`. All generated docs are written
 in this language. Language is resolved here because docs are authored **before any `spec.json` exists**.
 
 **Language is repo-wide — one `lang` per repo.** The single repo-root `.uneri.json` `lang` governs the
@@ -58,10 +58,7 @@ avoids a per-directory config layer). A repo whose contexts genuinely need diffe
 should be split into separate repos, one per language. (The spec layer may still vary per spec via
 `spec.json.language`, but it defaults from this repo-wide `lang`.)
 
-(cc-sdd itself has no `.cc-sdd.json`; it only takes `--lang` per run and persists language in each spec's `spec.json`.
-`.uneri.json` is uneri's own layer for the pre-spec phase — do not name it `.cc-sdd.json`.)
-
-Split content like cc-sdd's EARS rule (fixed tokens stay canonical, variable text localizes):
+Split content (fixed tokens stay canonical, variable text localizes):
 
 - **Keep canonical / verbatim in every language:** `inclusion: manual`; the `context:` frontmatter key; ID format `UC-<CTX>-NNN`;
   field keys `actor` / `realizes` / `aggregates`; band numbers `001–099` / `100–`;
@@ -81,7 +78,7 @@ Split content like cc-sdd's EARS rule (fixed tokens stay canonical, variable tex
    - **Record the decision in `.uneri.json`.** Once resolved (detected or confirmed), write the `layout` field:
      `single-context` for Pattern B, `multi-context` for Pattern A. Add the key without touching `agent`/`lang`;
      if `layout` already exists and disagrees with the current layout, warn and reconfirm rather than silently
-     flipping it (the repo may be mid-migration). Downstream `uc-*` / `spec-*` skills read this and cross-check it
+     flipping it (the repo may be mid-migration). Downstream `udd-*` / `sdd-*` skills read this and cross-check it
      against the actual layout. **`layout` records the A/B decision only — the full CTX registry stays in `structure.md`'s
      `## Bounded contexts`, not in `.uneri.json`.** Each `use-cases.md` declares **its own** single context in its
      frontmatter `context: <CTX>` (self-identification — see Step 3 / skeleton), which is essential for Pattern A
@@ -153,13 +150,12 @@ Upstream Domain Event / Aggregate live in `domain-model.md`; each UC references 
 Example for a `ja` project: the headings localize to `# ユースケース一覧`, `## UC-ID 規約`,
 `## 機能ユースケース`, `## 運用ユースケース`; the keys, IDs, and band numbers stay identical.
 
-## Common mistakes (each observed in baseline attempts — do NOT repeat)
+## Common mistakes (do NOT repeat)
 
 | ❌ Mistake                                                                | ✅ Correct                                                                                        |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | Overwriting existing `.kiro/uneri/` files                                 | Idempotent: skip/augment, never overwrite                                                         |
 | Hardcoding one language / ignoring the project's language                 | Localize headings & prose to `.uneri.json` `lang` (see Language); default `en`                    |
-| Naming the config `.cc-sdd.json` (cc-sdd never writes it)                 | Use uneri's own **`.uneri.json`**; cc-sdd persists language only in each spec's `spec.json`       |
 | Skipping domain discovery, leaving UCs nothing to reference               | Produce/augment `domain-model.md` / `actors.md` / `glossary.md` so UCs have `EVT-`/`AGG-`         |
 | Obsidian-style frontmatter (`title`/`tags`/`status`)                      | uneri frontmatter: **`inclusion: manual` ＋ `context: <CTX>`** (real code, not literal)           |
 | Rich per-UC cards (Status/Goal/Trigger/Flow/Acceptance/Priority)          | Minimal card: **`actor`** (+ optional realizes/aggregates/pre-post)                               |
@@ -169,7 +165,3 @@ Example for a `ja` project: the headings localize to `# ユースケース一覧
 | Flat UC list                                                              | Split **functional / operational** sections with number bands 001–099 / 100–                      |
 | Multiple `<CTX>` in one file / one combined file for a multi-context repo | **One `<CTX>` per file**; Pattern A = one file per context, Pattern B = one file                  |
 | Modeling NFRs as UCs                                                      | NFRs → `tech.md`/`structure.md` or spec `requirements.md`, not UCs                                |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:udd-init` — the `uneri-skills:` namespace is supplied by the plugin. Accepts `[CTX]` and the optional `--lang <code>` — this is **the one command that sets language** (`.uneri.json`); all downstream skills inherit it and take no `--lang`.

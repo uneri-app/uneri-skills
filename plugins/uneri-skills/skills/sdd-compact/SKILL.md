@@ -1,6 +1,6 @@
 ---
 name: sdd-compact
-description: Use when a spec's `requirements.md` or `design.md` has accumulated history (dated additions, appended clarification Q&A, retired or "withdrawn" text), has drifted from the implementation, or links to documents outside the spec directory — rewrites both files to describe the spec as it is now, and nothing else, keeping every ID other files refer to. Edits only those two files. Local-only. Triggers include "compact the spec", "spec を整理", "経緯をまとめる", "実装とずれた spec を直す". Output language follows `spec.json`.
+description: Use when a spec's `requirements.md` or `design.md` has accumulated history (dated additions, appended clarification Q&A, retired or "withdrawn" text), has drifted from the implementation, or links to documents outside the spec directory — rewrites both files to describe the spec as it is now, and nothing else, keeping every ID other files refer to. Edits only those two files. Triggers include "compact the spec", "spec を整理", "経緯をまとめる", "実装とずれた spec を直す".
 argument-hint: <feature-name>
 ---
 
@@ -100,8 +100,3 @@ touched: whether the requirements or the design need a new approval is the user'
 | Moving design-only behavior into `requirements.md`                | It stays in `design.md`; no acceptance criterion is added for it                      |
 | Keeping the Q&A block next to the folded answer                   | Fold the answer into the criterion or section, then remove the Q&A block              |
 | Running `git` or touching files outside the two spec files        | Local edit of two files; the user commits                                             |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-compact <feature-name>` — the `uneri-skills:` namespace is supplied by the plugin. Language is read from
-`spec.json` (set by `/uneri-skills:sdd-init`); this skill takes no `--lang`.

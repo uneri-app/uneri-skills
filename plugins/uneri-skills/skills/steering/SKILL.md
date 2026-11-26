@@ -1,6 +1,6 @@
 ---
 name: steering
-description: Use when a project needs steering docs (product / tech / structure) for spec-driven development — bootstraps or syncs `.kiro/steering/`. The UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md` under `.kiro/uneri/`) are referenced as domain steering, never duplicated. Local-only (no `gh`, no MCP). Triggers include "set up steering", "create product/tech/structure docs", "steering を作る". Output language follows `.uneri.json`.
+description: Use when a project needs steering docs (product / tech / structure) for spec-driven development — bootstraps or syncs `.kiro/steering/`. The UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md` under `.kiro/uneri/`) are referenced as domain steering, never duplicated. Triggers include "set up steering", "create product/tech/structure docs", "steering を作る".
 ---
 
 # uneri-skills:steering — scaffold `.kiro/steering/`
@@ -27,30 +27,17 @@ When both layers exist the separation is:
 - A new project or new context has no `.kiro/steering/` yet and needs a steering baseline.
 - An existing project is adopting SDD and wants to formalize product/tech/structure context for
   AI agents.
-- **NOT** for spec content (requirements, acceptance criteria) — that is the `spec-*` skills.
+- **NOT** for spec content (requirements, acceptance criteria) — that is the `sdd-*` skills.
 - **NOT** for domain modeling (actors, aggregates, events) — that is `/uneri-skills:udd-init`.
 - **NOT** when a steering file already exists → each existing file is skipped (never overwritten).
 
-## Language (uneri config)
+## Language
 
-Emit the files in the project's language, taken from **`.uneri.json`** (`lang`) — which
-**`/uneri-skills:udd-init` sets once** (via its `--lang`). uneri-skills:steering **reads** it and takes no
-`--lang`. Resolution when reading:
+Emit the files in the project's language: `.uneri.json` → `lang` (set once by `/uneri-skills:udd-init`; this skill takes no `--lang`), else the language of existing specs' `spec.json`, else default **`en`**.
 
-1. `.uneri.json` → `lang` (uneri's own repo-root config; **cc-sdd does not write this file** — see below);
-2. else the language of existing specs' `spec.json` → `language`;
-3. else default **`en`**.
+If this skill runs **standalone** and `.uneri.json` is **missing**, create it as a fallback: `{ "agent": "claude-code-skills", "lang": "<resolved>" }`. If it **exists**, read it and **do not overwrite** it.
 
-**`.uneri.json` is created by `/uneri-skills:udd-init`** (the entry point, via `--lang`) and carries the
-project-wide language for all `/uneri-skills:*` skills. If uneri-skills:steering runs **standalone** (no
-uneri-skills:udd-init) and `.uneri.json` is **missing**, create it as a fallback with the resolved value
-(`{ "agent": "claude-code-skills", "lang": "<resolved>" }`); if it **exists**, read it and **do
-not overwrite** it.
-
-(cc-sdd itself has no `.cc-sdd.json`; it only takes `--lang` per run and persists language in each
-spec's `spec.json`. `.uneri.json` is uneri's own layer — do not name it `.cc-sdd.json`.)
-
-Split content like cc-sdd's EARS rule (fixed tokens stay canonical, variable text localizes):
+Split content (fixed tokens stay canonical, variable text localizes):
 
 - **Keep canonical / verbatim in every language:** frontmatter key `inclusion`; context-code
   format `<CTX>` (uppercase); path references `.kiro/steering/`, `.kiro/uneri/`; file names
@@ -159,7 +146,7 @@ inclusion: manual
      Populate codes from .kiro/uneri/glossary.md if it exists. -->
 ```
 
-## Common mistakes (each observed in baseline attempts — do NOT repeat)
+## Common mistakes (do NOT repeat)
 
 | ❌ Mistake                                                 | ✅ Correct                                                                                        |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
@@ -168,11 +155,4 @@ inclusion: manual
 | Hardcoding one language / ignoring the project's language  | Localize headings & prose to `.uneri.json` `lang` (see Language); default `en`                    |
 | Putting use-case content (actor, UC-IDs) in steering files | UC content belongs in `.kiro/uneri/use-cases.md`; steering is project context only                |
 | Putting non-functional requirements in `use-cases.md`      | NFRs are **not UCs**; they belong in `tech.md` or a spec's `requirements.md`                      |
-| Naming the config `.cc-sdd.json` (cc-sdd never writes it)  | Use uneri's own **`.uneri.json`**; cc-sdd persists language only in each spec's `spec.json`       |
 | Writing to `.kiro/uneri/` from this skill                  | uneri-skills:steering writes only under **`.kiro/steering/`**; `.kiro/uneri/` is read-only for it |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:steering` — the `uneri-skills:` namespace is supplied by the plugin. Language comes from
-`.uneri.json` (set by `/uneri-skills:udd-init`); this skill takes no `--lang` (standalone: falls back to
-`spec.json`/`en` and creates `.uneri.json`).

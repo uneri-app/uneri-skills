@@ -1,6 +1,6 @@
 ---
 name: sdd-trace
-description: Use to audit UC↔spec↔requirement↔task consistency across the project — reports orphan specs, un-specced use cases, dangling task references, and requirement/scenario coverage gaps, and counts progress as implemented use cases out of active ones (deprecated use cases are not counted). Given a spec name (`/uneri-skills:sdd-trace <feature>`), also reports that spec's status — phase, approvals, task progress, next action. Reports only; never writes, never blocks (same philosophy as uneri-skills:udd-validate). Local-only. Triggers include "trace check", "整合を検査", "spec trace", "spec status", "進捗を見せて". Output language follows `.uneri.json`.
+description: Use to audit UC↔spec↔requirement↔task consistency across the project — reports orphan specs, un-specced use cases, dangling task references, and requirement/scenario coverage gaps, and counts progress as implemented use cases out of active ones (deprecated use cases are not counted). Given a spec name (`/uneri-skills:sdd-trace <feature>`), also reports that spec's status — phase, approvals, task progress, next action. Reports only; never writes, never blocks. Triggers include "trace check", "整合を検査", "spec trace", "spec status", "進捗を見せて".
 ---
 
 # uneri-skills:sdd-trace — audit UC↔spec↔requirement↔task consistency
@@ -153,8 +153,3 @@ numbers, and field names verbatim.
 | Reporting in the wrong language                     | Follow `.uneri.json` `lang`; localize prose, keep IDs/keys verbatim                                    |
 | Running `gh` or MCP                                 | Local-only; no `gh`, no MCP, no network                                                                |
 | Attempting to auto-fix findings                     | Point to the appropriate `uneri-skills:sdd-*` skill for each type of finding; do not fix automatically |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:sdd-trace` — the `uneri-skills:` namespace is supplied by the plugin. Language comes from `.uneri.json` (set by
-`/uneri-skills:udd-init`); this skill takes no `--lang`.

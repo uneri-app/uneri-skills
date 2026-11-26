@@ -1,6 +1,6 @@
 ---
 name: udd-validate
-description: Use when checking a `.kiro/uneri/use-cases.md` for integrity — a read-only, Markdown-only validation (lint-style, no deps) reporting UC-ID duplicates, band/section violations, a missing `actor`, unregistered actors, dangling `realizes`/`aggregates`, multiple `{CTX}`, gaps, use cases outside every journey stage, stray generated fields, localized field keys, and `notes` fields that have grown into design content. Triggers include "validate use cases", "lint use cases", "use-cases.md をチェック", "UCの整合を確認", or after uneri-skills:udd-add. Reports only (does not edit). A later version may delegate to a dedicated trace tool. Output language follows `.uneri.json`.
+description: Use when checking a `.kiro/uneri/use-cases.md` for integrity — a read-only, Markdown-only validation (lint-style, no deps) reporting UC-ID duplicates and gaps, band/section violations, missing or unregistered actors, dangling `realizes`/`aggregates`, stray generated fields and localized field keys. Triggers include "validate use cases", "lint use cases", "use-cases.md をチェック", "UCの整合を確認", or after uneri-skills:udd-add. Reports only (does not edit).
 ---
 
 # uneri-skills:udd-validate — validate `use-cases.md` (single file)
@@ -108,7 +108,3 @@ Report **"no issues"** explicitly when clean. Localize the labels; keep ids/keys
 | Failing when `actors.md`/`domain-model.md` are absent | Skip that cross-file check and note it; core single-file checks still run |
 | Re-implementing repo-wide traceability                | Out of scope here (a later, dedicated trace tool); this is single-file    |
 | Reporting in the wrong language                       | Follow `.uneri.json` `lang` (see Language)                                |
-
-## Note on invocation
-
-Invoked as `/uneri-skills:udd-validate` — the `uneri-skills:` namespace is supplied by the plugin. Language comes from `.uneri.json` (set by `/uneri-skills:udd-init`); this skill takes no `--lang`.

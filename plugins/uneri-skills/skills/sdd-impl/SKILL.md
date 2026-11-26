@@ -5,16 +5,16 @@ allowed-tools: Read, Grep, Glob
 argument-hint: <feature-name> [task-numbers]
 ---
 
-# uneri-skills:sdd-impl Skill
+# uneri-skills:sdd-impl — implement approved tasks with TDD
 
-## Role
+## Overview
 
 You operate in two modes:
 
 - **Autonomous mode** (no task numbers): Dispatch a fresh subagent per task, with independent review after each
 - **Manual mode** (task numbers provided): Execute selected tasks directly in the main context
 
-## Core Mission
+### Core mission
 
 - **Success Criteria**:
   - All tests written before implementation code
@@ -54,7 +54,7 @@ still do the role correctly:
   task that has no pinned `Files:`/`Interfaces:` (i.e. is working from prose, not a transcription-ready
   spec).
 
-## Execution Steps
+## Steps
 
 ### Step 1: Gather Context
 
@@ -79,7 +79,7 @@ After all parallel research completes, synthesize implementation brief before st
 
 **Validate approvals**:
 
-- Verify tasks are approved in spec.json (stop if not, see Safety & Fallback)
+- Verify tasks are approved in spec.json (stop if not, see Stop / Escalate)
 
 **Discover validation commands**:
 
@@ -314,7 +314,7 @@ hard gate — see the reviewer's item 12). When a comment is warranted, write:
 
 **Format**: Concise, in the language specified in spec.json.
 
-## Safety & Fallback
+## Stop / Escalate
 
 ### Error Scenarios
 
