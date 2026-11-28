@@ -126,14 +126,17 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 7. **Update `spec.json`**:
    - Set `phase: "requirements-generated"`.
    - Set `approvals.requirements.generated: true`.
-   - Refresh `updated_at` to the current ISO-8601 timestamp.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
    - **On a re-open** (see Gate above): also set `approvals.requirements.approved: false` and reset
      `approvals.design.*`, `approvals.tasks.*`, and `ready_for_implementation: false`.
 
-8. **Ask the user to review** the generated `requirements.md`. When they confirm the requirements
-   are correct:
+8. **Ask the user to review** the generated `requirements.md`, and tell them how to approve it: say
+   that the requirements are approved, or re-run `/uneri-skills:sdd-requirements <slug>` and confirm.
+   This is the **one** way to approve — `sdd-clarify` and `sdd-design` point back to it. An
+   approval-only run (`requirements.md` already exists and the user confirms it) must **not**
+   regenerate the file; it only sets the flag. When they confirm the requirements are correct:
    - Set `approvals.requirements.approved: true` in `spec.json`.
-   - Refresh `updated_at`.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
    - Point to the next step: `/uneri-skills:sdd-clarify`.
 
 ## The `requirements.md` it writes

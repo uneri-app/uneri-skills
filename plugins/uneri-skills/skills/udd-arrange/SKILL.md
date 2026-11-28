@@ -24,7 +24,7 @@ Output (the proposal and the stage names) is written in the project's language (
 
 ## Language (uneri config)
 
-Language from **`.uneri.json`** (`lang`, set by `/uneri-skills:udd-init`); no `--lang` argument. Stage names are
+Language from **`.uneri.json`** (`lang`, set by `/uneri-skills:steering`); no `--lang` argument. Stage names are
 localized; the marker key `journey:` and all ids and field keys stay as written.
 
 ## The format it produces

@@ -48,7 +48,7 @@ told apart from any other, and a person has to sort it by hand.
 
 ## Language (uneri config)
 
-Language from **`.uneri.json`** (`lang`, set by `/uneri-skills:udd-init`); no `--lang` argument. Localize
+Language from **`.uneri.json`** (`lang`, set by `/uneri-skills:steering`); no `--lang` argument. Localize
 prose in the PR body; keep IDs, field keys (`traces_uc`, `phase`), and requirement numbers verbatim.
 
 ## Preconditions (fail-soft)

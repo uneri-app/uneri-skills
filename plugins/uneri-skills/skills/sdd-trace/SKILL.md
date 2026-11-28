@@ -21,7 +21,7 @@ tasks. It reads `.kiro/uneri/use-cases.md`, every `.kiro/specs/*/spec.json` (`tr
 
 ## Language
 
-Emit the report in the language from **`.uneri.json`** (`lang`, set by `/uneri-skills:udd-init`); this
+Emit the report in the language from **`.uneri.json`** (`lang`, set by `/uneri-skills:steering`); this
 skill **reads** it and takes **no `--lang`**. Localize prose; keep IDs, field keys (`UC-`, `traces_uc`), and requirement numbers verbatim.
 
 ## Steps

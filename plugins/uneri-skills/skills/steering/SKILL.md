@@ -1,6 +1,6 @@
 ---
 name: steering
-description: Use when a project needs steering docs (product / tech / structure) for spec-driven development — bootstraps `.kiro/steering/` from the codebase, or syncs it when the code has drifted. The UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md` under `.kiro/uneri/`) are referenced as domain steering, never duplicated. Triggers include "set up steering", "create product/tech/structure docs".
+description: Use when a project needs steering docs (product / tech / structure) for spec-driven development — bootstraps `.kiro/steering/` from the codebase, or syncs it when the code has drifted. The UC-layer domain docs (`domain-model.md` / `actors.md` / `glossary.md` under `.kiro/uneri/`) are referenced as domain steering, never duplicated. Triggers include "set up steering", "create product/tech/structure docs". Takes `[--lang {code}]`.
 ---
 
 # uneri-skills:steering — bootstrap and sync `.kiro/steering/`
@@ -43,9 +43,9 @@ When both layers exist the separation is:
 
 ## Language
 
-Emit the files in the project's language: `.uneri.json` → `lang` (set once by `/uneri-skills:udd-init`; this skill takes no `--lang`), else the language of existing specs' `spec.json`, else default **`en`**.
+Emit the files in the project's language. Resolve it the way `/uneri-skills:udd-init` does: `--lang <code>` (one of `ja, en, zh-TW, zh, es, pt, de, fr, ru, it, ko, ar, el`) → `.uneri.json` → `lang` → the language of existing specs' `spec.json` → default **`en`**.
 
-If this skill runs **standalone** and `.uneri.json` is **missing**, create it as a fallback: `{ "agent": "claude-code-skills", "lang": "<resolved>" }`. If it **exists**, read it and **do not overwrite** it.
+**This skill is where the language is chosen** (it is the recommended first command; `/uneri-skills:udd-init --lang` does the same if you start there instead). If `.uneri.json` is **missing**, create it: `{ "agent": "claude-code-skills", "lang": "<resolved>" }`. If it **exists**, read it and **do not overwrite** it; when `--lang` differs from its `lang`, keep the file's value and tell the user (one `lang` per repo — change it in `.uneri.json` by hand).
 
 Split content (fixed tokens stay canonical, variable text localizes):
 
@@ -57,8 +57,8 @@ Split content (fixed tokens stay canonical, variable text localizes):
 
 ## Steps
 
-1. **Resolve the language** (see Language) and **persist it to `.uneri.json`** (create if missing,
-   never overwrite if it exists).
+1. **Resolve the language** (see Language: `--lang`, else the existing config) and **persist it to `.uneri.json`**
+   (create if missing, never overwrite if it exists).
 2. **Detect the mode.** Check `product.md`, `tech.md`, `structure.md` under `.kiro/steering/`.
    Any missing → **Bootstrap** for the missing files only (existing ones are never touched).
    All present → **Sync**.
@@ -82,7 +82,10 @@ Split content (fixed tokens stay canonical, variable text localizes):
 6. **Sync (all three exist).** Read the three files and re-read the code as in Step 3. Report:
    steering that names something the code no longer has (warning), code patterns the steering
    does not mention (update candidate), and whether a custom file such as `api-standards.md`
-   would help. **Propose** the additions and apply one only when the user agrees, appending
+   would help. Also compare the bounded-context codes (`<CTX>`) in `.kiro/uneri/glossary.md` and
+   `use-cases.md` with `structure.md`'s `## Bounded contexts`; a code that is missing there is a
+   proposed addition (this is how contexts found by `/uneri-skills:udd-init` reach the steering).
+   **Propose** the additions and apply one only when the user agrees, appending
    rather than replacing. Do not touch the user's own text.
 7. **Summarize** created / kept / proposed per file, and which sections are drafts to confirm
    (Bootstrap) or drift found (Sync). Ask the user to review the drafts as the project's source of

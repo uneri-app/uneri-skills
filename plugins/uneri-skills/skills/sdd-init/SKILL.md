@@ -29,7 +29,7 @@ the default assumption is that revisiting a UC means resuming its existing spec,
 
 ## Language
 
-The resolved language is written to `spec.json.language`. Read it from `.uneri.json` → `lang` (set once by `/uneri-skills:udd-init`; this skill takes no `--lang`), else from the language of existing specs' `spec.json`, else default **`en`**.
+The resolved language is written to `spec.json.language`. Read it from `.uneri.json` → `lang` (set once by `/uneri-skills:steering`; this skill takes no `--lang`), else from the language of existing specs' `spec.json`, else default **`en`**.
 
 If this skill runs **standalone** and `.uneri.json` is **missing**, create it as a fallback: `{ "agent": "claude-code-skills", "lang": "<resolved>" }`. If it **exists**, read it and **do not overwrite** it.
 

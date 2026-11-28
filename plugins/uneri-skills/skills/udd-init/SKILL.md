@@ -32,23 +32,26 @@ and the granularity rules.
 
 Recommended command order:
 
-1. `/uneri-skills:steering` *(optional but recommended, especially multi-context)* — product / tech / **structure**.
-   `structure.md` defines the bounded contexts; if it exists, this skill reconciles `<CTX>` against it (Step 3).
-2. **`/uneri-skills:udd-init [CTX] --lang <code>`** — this skill: language + domain discovery + `use-cases.md`.
+1. `/uneri-skills:steering [--lang <code>]` *(recommended first)* — product / tech / **structure**. It drafts them
+   from the code if there is any. `structure.md` defines the bounded contexts; if it exists, this skill reconciles
+   `<CTX>` against it (Step 3).
+2. **`/uneri-skills:udd-init [CTX] [--lang <code>]`** — this skill: language + domain discovery + `use-cases.md`.
 3. `/uneri-skills:udd-add` → `/uneri-skills:udd-validate` — author and verify UCs.
 4. `/uneri-skills:sdd-init` → `-requirements` → `-clarify` → `-design` → `-tasks` → `-trace` — per UC, into a spec.
 
-If your bounded contexts are already known, run `/uneri-skills:steering` first so `<CTX>` is settled top-down; for a
-from-scratch or single-context start, this skill can go first and derive `<CTX>` itself (Step 3).
+Steering first settles `<CTX>` top-down and gives `sdd-design` / `sdd-impl` the stack and structure they read. In a
+from-scratch project it is mostly skeletons (fill `product.md` — what, why, users): run this skill next, then run
+`/uneri-skills:steering` again, and it proposes the contexts found here for `structure.md`. Starting here is also fine;
+this skill can go first and derive `<CTX>` itself (Step 3).
 
-## Language (uneri config) — set here, once
+## Language (uneri config) — chosen by steering, or here if you start here
 
-**uneri-skills:udd-init is the single place language is chosen.** Resolve: `--lang <code>` (one of the 13 supported codes:
+**The language is chosen by `uneri-skills:steering`, the recommended first command.** If you start here instead, `--lang` on this skill does the same, with the same rules, and `steering` then reads it. Resolve: `--lang <code>` (one of the 13 supported codes:
 `ja, en, zh-TW, zh, es, pt, de, fr, ru, it, ko, ar, el`) → existing `.uneri.json` `lang` → existing specs'
 `spec.json` `language` → default `en`. Then **create `.uneri.json`** if missing
 (`{ "agent": "claude-code-skills", "lang": "<resolved>" }`); if it exists, read it and **do not overwrite**
 existing keys (Step 2 additionally records a `layout` field — see below).
-Downstream `udd-*` / `steering` / `sdd-*` skills inherit this and take no `--lang`. All generated docs are written
+The other `udd-*` / `sdd-*` skills inherit this and take no `--lang`. All generated docs are written
 in this language. Language is resolved here because docs are authored **before any `spec.json` exists**.
 
 **Language is repo-wide — one `lang` per repo.** The single repo-root `.uneri.json` `lang` governs the

@@ -27,8 +27,8 @@ After installing, run `/reload-plugins`. From then on, call skills as `/uneri-sk
 The recommended order:
 
 ```
-/uneri-skills:steering                       # optional, recommended (especially for multiple contexts)
-/uneri-skills:udd-init [CTX] --lang <ja|en>  # entry: language + domain discovery + use-cases.md scaffold
+/uneri-skills:steering [--lang <ja|en>]      # recommended first: language + product / tech / structure
+/uneri-skills:udd-init [CTX]                  # domain discovery + use-cases.md scaffold
 /uneri-skills:udd-add → /uneri-skills:udd-validate  # write UCs → check consistency
 /uneri-skills:udd-arrange                     # optional: order a long list by the user's journey
 # Then turn each UC into a spec and implement it:
@@ -48,17 +48,17 @@ The recommended order:
 The example is an `order` (order management) domain with CTX = `ORD`, and one UC:
 `UC-ORD-001 A customer places an order` (`actor: Customer`, `realizes: [EVT-ORD-001]`).
 
-### 0. (Optional) steering
+### 0. steering (recommended first)
 
-- **Run**: `/uneri-skills:steering`
-- **Produces**: `.kiro/steering/{product,tech,structure}.md`
+- **Run**: `/uneri-skills:steering --lang en`
+- **Produces**: `.uneri.json` (keeps `lang`), `.kiro/steering/{product,tech,structure}.md`. With existing code it drafts them from it and marks what it inferred `draft: … confirm`.
 - **Check by eye**: `structure.md` lists `- ORD — order management` under `## Bounded contexts`.
-- **Move on when**: with multiple contexts, do this first. For a single or new project you can skip it.
+- **Move on when**: `product.md` says what, why and for whom. In a new project the rest stays empty for now; run `steering` again after `udd-init` and it proposes the contexts found there.
 
-### 1. Entry: udd-init
+### 1. Domain discovery: udd-init
 
-- **Run**: `/uneri-skills:udd-init ORD --lang en`
-- **Produces**: `.uneri.json` (keeps `lang`), `.kiro/uneri/{domain-model,actors,glossary,use-cases}.md`
+- **Run**: `/uneri-skills:udd-init ORD`
+- **Produces**: `.kiro/uneri/{domain-model,actors,glossary,use-cases}.md`. If `.uneri.json` is missing (you started here), it also sets the language: add `--lang en`.
 - **Check by eye**: the frontmatter of `use-cases.md` has `context: ORD`.
 - **Move on when**: `.uneri.json` exists and the language is fixed.
 
@@ -172,7 +172,7 @@ The example is an `order` (order management) domain with CTX = `ORD`, and one UC
 - For brownfield, put `-validate-gap` before `-tasks`.
 - Only three skills have side effects: `sdd-impl`, `issue-upsert` and `pr-upsert`. All of them can start from a natural request (you do not have to invoke them explicitly). `sdd-impl` stops unless the tasks are approved, and runs to the end once started.
   `issue-upsert` and `pr-upsert` always ask for your confirmation before a push or a `gh` write.
-- With multiple contexts, run `steering` first and fix the CTX before `udd-init`.
+- Run `steering` first, so the CTX is fixed before `udd-init`. Starting with `udd-init` also works; it derives the CTX itself.
 - `--lang` is set once for the whole repository; it cannot be set per context.
 
 ## Next steps

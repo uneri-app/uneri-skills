@@ -4,9 +4,9 @@ description: How the skills fit together.
 ---
 
 ```text
-udd-init ─▶ udd-add ─▶ udd-validate ─▶ (udd-arrange)
-                │
-                ▼
+steering ─▶ udd-init ─▶ udd-add ─▶ udd-validate ─▶ (udd-arrange)
+                           │
+                           ▼
 sdd-init ─▶ sdd-requirements ─▶ sdd-clarify ─▶ sdd-design ─▶ sdd-validate-design
                                                                   │
                                                                   ▼

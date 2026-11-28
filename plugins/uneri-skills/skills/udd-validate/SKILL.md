@@ -22,7 +22,7 @@ tools), reports problems by severity, and **does not modify the file** — fix v
 
 ## Language (uneri config)
 
-Emit the report in the language from **`.uneri.json`** (`lang`, set by `/uneri-skills:udd-init`); uneri-skills:udd-validate **reads** it and takes no `--lang`
+Emit the report in the language from **`.uneri.json`** (`lang`, set by `/uneri-skills:steering`); uneri-skills:udd-validate **reads** it and takes no `--lang`
 (`.uneri.json` → specs' `spec.json` → `en`). Localize prose; keep ids and field keys (`UC-`/`EVT-`/`AGG-`, `actor`) verbatim.
 
 ## Steps

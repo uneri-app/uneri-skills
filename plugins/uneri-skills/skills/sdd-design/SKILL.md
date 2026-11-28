@@ -21,10 +21,10 @@ makes the in-scope / out-of-boundary line explicit. **Local-only** — no `gh`, 
 
 If either condition is missing, report the specific failure and the fix:
 
-| Missing condition                          | Error message                                                                                                                                                                                                                                |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `approvals.requirements.approved` is false | **Error:** Requirements have not been approved yet. Approve the existing requirements (set `approvals.requirements.approved: true` after review), or run `/uneri-skills:sdd-requirements` first if requirements have not been generated yet. |
-| `phase` is not `"clarified"`               | **Error:** Clarification has not been completed yet. Run `/uneri-skills:sdd-clarify` first to resolve open questions and advance the phase.                                                                                                  |
+| Missing condition                          | Error message                                                                                                                                                                                                                                                                               |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `approvals.requirements.approved` is false | **Error:** Requirements have not been approved yet. Review `requirements.md`, then approve it (say that the requirements are approved, or run `/uneri-skills:sdd-requirements <slug>` and confirm); run `/uneri-skills:sdd-requirements` first if requirements have not been generated yet. |
+| `phase` is not `"clarified"`               | **Error:** Clarification has not been completed yet. Run `/uneri-skills:sdd-clarify` first to resolve open questions and advance the phase.                                                                                                                                                 |
 
 Do not ask any questions, do not write any file, and do not continue until **both** conditions are satisfied.
 
@@ -88,7 +88,7 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
      changed design — set `approvals.design.approved: false`, `approvals.tasks.generated: false`,
      `approvals.tasks.approved: false`, and `ready_for_implementation: false`. The PL must re-approve the revised design
      and `/uneri-skills:sdd-tasks` must regenerate tasks.
-   - Refresh `updated_at` to the current ISO-8601 timestamp.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
 
 6. **Record the open decisions, and show them before asking for review.** An open decision is a place where the design
    leaves a real choice unmade: alternatives named but none chosen, a `TBD`, or an assumption nobody confirmed. Write them
@@ -106,7 +106,7 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 
 7. **Ask the user to review** the generated `design.md`. When they confirm the design is correct:
    - Set `approvals.design.approved: true` in `spec.json`.
-   - Refresh `updated_at`.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
    - Point to the next step: optionally `/uneri-skills:sdd-validate-design` to review design
      quality first, then `/uneri-skills:sdd-tasks`.
 

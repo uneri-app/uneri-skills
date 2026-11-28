@@ -118,7 +118,7 @@ context: <CTX>
 ```
 
 Two sections only: **functional** (001–099) and **operational** (100–). Output in the project's language
-(`.uneri.json` `lang`, set by `/uneri-skills:udd-init`); keep canonical tokens (`inclusion: manual`, `context:`, `UC-`/`EVT-`/`AGG-`, field keys) verbatim.
+(`.uneri.json` `lang`, set by `/uneri-skills:steering`); keep canonical tokens (`inclusion: manual`, `context:`, `UC-`/`EVT-`/`AGG-`, field keys) verbatim.
 
 ## Common mistakes
 

@@ -219,7 +219,7 @@ skill does this (see the published reference page `spec-json-phase`). In the sam
 `verification.md`:
 
 - Set `phase: "implemented"`.
-- Refresh `updated_at` to the current ISO-8601 timestamp.
+- Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
 
 **Do not** write `phase` on `NO-GO` or `MANUAL_VERIFY_REQUIRED` — leave it at `tasks-generated` so a
 re-validation after fixes is exactly the same "not yet implemented" state a fresh run would see.

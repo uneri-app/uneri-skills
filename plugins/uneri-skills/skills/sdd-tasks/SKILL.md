@@ -63,7 +63,9 @@ then default `en`. This skill takes **no `--lang`** — language is already reso
      (plus the optional `Files:`/`Interfaces:` lines described further down):
      - `- *UC: UC-<CTX>-NNN*`
      - `- *Requirements: <number>, <number>*` (reference the requirement numbers from
-       `requirements.md` that this task satisfies)
+       `requirements.md` that this task satisfies). A task that covers behaviour recorded only in
+       `## Clarifications` (no numbered criterion) cites that entry — `*Requirements: Clarification — <topic>*`
+       — instead of borrowing the nearest number, so the trace stays true.
    - Mark parallelizable tasks with `(P)` at the end of the task description line.
    - Open the file with a `## Global Constraints` section (right below the UC heading, before the
      first group) — project-wide constraints copied **verbatim** from `design.md`/`requirements.md`
@@ -116,14 +118,14 @@ then default `en`. This skill takes **no `--lang`** — language is already reso
 6. **Update `spec.json`**:
    - Set `phase: "tasks-generated"`.
    - Set `approvals.tasks.generated: true`.
-   - Refresh `updated_at` to the current ISO-8601 timestamp.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
 
 7. **Ask the user to review** the generated `tasks.md`. When they confirm the tasks are correct:
    - Set `approvals.tasks.approved: true` in `spec.json`.
    - Set `ready_for_implementation: true` in `spec.json` — this is the only place that flag is set
      to `true`; `/uneri-skills:sdd-init` creates it `false` and a design re-open resets it to `false`, but
      nothing else advances it.
-   - Refresh `updated_at`.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
    - The next step is `/uneri-skills:sdd-impl` (TDD + subagent dispatch), followed by `/uneri-skills:sdd-validate-impl`
      as the feature-level GO/NO-GO gate. If the user asked to carry the spec through to implementation (an explicit request to implement — e.g. "implement it", "実装まで進めて", "最後まで" — not merely "generate the tasks" or "get this going"),
      **continue into `/uneri-skills:sdd-impl` without stopping**; if they only asked for the tasks, suggest it

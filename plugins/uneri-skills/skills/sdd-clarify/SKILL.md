@@ -18,8 +18,9 @@ checks before it will run. **Local-only** — no `gh`, no MCP.
 
 If the approval flag is missing or `false`:
 
-> **Error:** Requirements have not been approved yet. Run `/uneri-skills:sdd-requirements` to generate and
-> approve the requirements for this spec, then re-run `/uneri-skills:sdd-clarify`.
+> **Error:** Requirements have not been approved yet. Review `requirements.md`, then approve it: say that
+> the requirements are approved, or run `/uneri-skills:sdd-requirements <slug>` and confirm (run it first if
+> `requirements.md` has not been generated). Then re-run `/uneri-skills:sdd-clarify`.
 
 Do not ask any questions, do not write any file, and do not continue until this condition is
 satisfied.
@@ -127,7 +128,7 @@ default `en`. This skill takes **no `--lang`** — language is already resolved 
 
 5. **Update `spec.json`**:
    - Set `phase: "clarified"`.
-   - Refresh `updated_at` to the current ISO-8601 timestamp.
+   - Refresh `updated_at` to the current ISO-8601 UTC timestamp, read from the clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`). If the clock cannot be read, leave `updated_at` as it is and say so; never write an estimated time.
    - **On a re-open** (see Gate above): also reset `approvals.design.*`, `approvals.tasks.*`, and
      `ready_for_implementation: false`.
 

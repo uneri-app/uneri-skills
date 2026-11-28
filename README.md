@@ -53,10 +53,22 @@ claude plugin install uneri-skills@uneri-app --scope project
 
 Then run `/reload-plugins` in any open session, or restart Claude Code.
 
+## Update
+
+The installed plugin only changes when its version changes.
+
+```bash
+claude plugin marketplace update uneri-app
+claude plugin update uneri-skills@uneri-app
+```
+
+Restart Claude Code afterwards. What stays compatible between versions is in the [upgrading guide](https://uneri-app.github.io/uneri-skills/guides/upgrading/).
+
 ## Quick start
 
 ```text
-/uneri-skills:udd-init --lang en        # language, domain discovery, use-cases.md
+/uneri-skills:steering --lang en        # language, product / tech / structure (drafted from your code)
+/uneri-skills:udd-init                  # domain discovery, use-cases.md
 /uneri-skills:udd-add                   # add your first use case
 /uneri-skills:sdd-init                  # turn it into a spec
 /uneri-skills:sdd-requirements → /uneri-skills:sdd-clarify → /uneri-skills:sdd-design → /uneri-skills:sdd-tasks
@@ -74,12 +86,12 @@ Full documentation, including a worked example: **<https://uneri-app.github.io/u
 
 ### UDD: find and write use cases
 
-| Skill                        | What it does                                                                |
-| ---------------------------- | --------------------------------------------------------------------------- |
-| `/uneri-skills:udd-init`     | Entry point: language, light EventStorming, and the `use-cases.md` scaffold |
-| `/uneri-skills:udd-add`      | Append one use case with an auto-numbered, immutable ID                     |
-| `/uneri-skills:udd-validate` | Check `use-cases.md` for duplicates, gaps and missing fields                |
-| `/uneri-skills:udd-arrange`  | Reorder the use cases by the user's journey, without changing any ID        |
+| Skill                        | What it does                                                         |
+| ---------------------------- | -------------------------------------------------------------------- |
+| `/uneri-skills:udd-init`     | Light EventStorming and the `use-cases.md` scaffold                  |
+| `/uneri-skills:udd-add`      | Append one use case with an auto-numbered, immutable ID              |
+| `/uneri-skills:udd-validate` | Check `use-cases.md` for duplicates, gaps and missing fields         |
+| `/uneri-skills:udd-arrange`  | Reorder the use cases by the user's journey, without changing any ID |
 
 ### SDD: from spec to implementation
 

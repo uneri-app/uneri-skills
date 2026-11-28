@@ -24,7 +24,7 @@ and the granularity rules. Add UCs, then verify with `uneri-skills:udd-validate`
 
 ## Language (uneri config)
 
-The output language comes from **`.uneri.json`** (`lang`), set once by `/uneri-skills:udd-init`. uneri-skills:udd-add **reads** it and takes no `--lang`.
+The output language comes from **`.uneri.json`** (`lang`), set once by `/uneri-skills:steering`. uneri-skills:udd-add **reads** it and takes no `--lang`.
 Localize the UC name/prose; keep canonical tokens
 (`UC-<CTX>-NNN`, field keys `actor`/`realizes`/`aggregates`, `EVT-`/`AGG-` ids) verbatim.
 

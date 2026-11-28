@@ -64,7 +64,7 @@ Issue exists yet. Non-UC Issues have no such split — the developer (or this sk
 
 ## Language (uneri config)
 
-Language from **`.uneri.json`** (`lang`, set by `/uneri-skills:udd-init`); no `--lang` argument. The UC heading text comes
+Language from **`.uneri.json`** (`lang`, set by `/uneri-skills:steering`); no `--lang` argument. The UC heading text comes
 from use-cases.md, so the Issue naturally matches. Field names (`actor:`, `traces:`) stay as-is in any language.
 
 ## The contract (forward compatibility — do not break)
